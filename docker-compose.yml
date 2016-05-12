@@ -2,8 +2,8 @@ version: '2'
 services:
   php:
     build:
-      dockerfile: 7.0/Dockerfile-fpm
-      context: .
+      dockerfile: Dockerfile-fpm
+      context: '7.0'
       args:
         - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
     image: ${STACK_PHP_IMAGE}
