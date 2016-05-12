@@ -1,0 +1,48 @@
+stages:
+  - build
+  - test
+  - deploy
+  - cleanup
+
+
+before_script:
+  - export ISOLATION=buildref${CI_BUILD_REF}$(echo ${CI_BUILD_REF_NAME} | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]')
+  - export COMPOSE_PROJECT_NAME=${ISOLATION}
+  - export STACK_PHP_IMAGE=registry-v2.hrzg.de/dmstr/php
+
+
+build:
+  stage: build
+  script:
+    - docker-compose build --pull
+
+test:
+  stage: test
+  script:
+    - docker-compose run --rm php composer --version
+    - docker-compose run --rm php codecept --version
+    - docker-compose run --rm php phpunit --version
+    - docker-compose run --rm php yii
+
+test:allow-fail:
+  stage: test
+  script:
+    - docker run ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
+  allow_failure: true
+
+lint:
+  stage: test
+  script:
+    - docker-compose run --rm php composer global show
+
+release:
+  stage: deploy
+  script:
+    - docker push ${STACK_PHP_IMAGE}
+
+cleanup:
+  stage: cleanup
+  script:
+    - docker-compose kill
+    - docker-compose rm -fv --all
+    - docker-compose down --rmi local
