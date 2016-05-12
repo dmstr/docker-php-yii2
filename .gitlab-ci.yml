@@ -8,7 +8,7 @@ stages:
 before_script:
   - export ISOLATION=buildref${CI_BUILD_REF}$(echo ${CI_BUILD_REF_NAME} | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]')
   - export COMPOSE_PROJECT_NAME=${ISOLATION}
-  - export STACK_PHP_IMAGE=registry-v2.hrzg.de/dmstr/php
+  - export STACK_PHP_IMAGE=dmstr/php-yii2
 
 
 build:
