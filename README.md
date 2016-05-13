@@ -1,7 +1,7 @@
 Supported tags and respective `Dockerfile` links
 ================================================
 
-- `7.0-fpm`, `7-fpm`, `fpm` (7.0/fpm/Dockerfile)
+- `7.0-fpm`, `7-fpm`, `fpm`, `latest` (7.0/fpm/Dockerfile)
 
 Introduction
 ------------
