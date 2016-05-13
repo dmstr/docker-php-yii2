@@ -32,6 +32,8 @@ test:allow-fail:
   script:
     - docker run ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
   allow_failure: true
+  except:
+    - tags
 
 lint:
   stage: test
