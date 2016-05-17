@@ -1,8 +1,18 @@
 cat <<MSG
-dmstr/php:yii2 bash
--------------------
+ ___________
+|           |
+|     _     |      _               _
+|  /\| |/\  |     | |             | |
+|  \ ` ' /  |   __| |_ __ ___  ___| |_ _ __
+| |_     _| |  / _` | '_ ` _ \/ __| __| '__|
+|  / , . \  | | (_| | | | | | \__ \ |_| |
+|  \/|_|\/  |  \__,_|_| |_| |_|___/\__|_|
+ \         /
+  \_______/
 
-available commands:
+Docker image dmstr/php-yii2
+
+Available commands:
 
  composer
  codecept
@@ -10,5 +20,3 @@ available commands:
  yii
 
 MSG
-
-
