@@ -42,10 +42,10 @@ lint:
   script:
     - docker-compose run --rm php composer global show
 
-release:
+release:latest:
   stage: release
   only:
-    - release
+    - latest
     - tags
   script:
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
