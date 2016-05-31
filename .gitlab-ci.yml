@@ -4,7 +4,6 @@ stages:
   - release
   - cleanup
 
-
 before_script:
   - export ISOLATION=buildref${CI_BUILD_REF}$(echo ${CI_BUILD_REF_NAME} | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]')
   - export COMPOSE_PROJECT_NAME=${ISOLATION}
@@ -14,7 +13,6 @@ before_script:
   - export REGISTRY_PHP_IMAGE=${PHP_IMAGE_NAME}:${CI_BUILD_REF_NAME}
   - echo "Building image"
   - echo ${STACK_PHP_IMAGE}
-
 
 build:
   stage: build
