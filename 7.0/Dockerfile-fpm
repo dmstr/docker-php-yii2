@@ -51,7 +51,7 @@ RUN npm install -g less lesshint google-closure-compiler
 
 ENV PHP_USER_ID=33 \
     VERSION_COMPOSER_ASSET_PLUGIN=^1.1.4 \
-    VERSION_PRESTISSIMO_PLUGIN=^0.2.3 \
+    VERSION_PRESTISSIMO_PLUGIN=^0.2.4 \
     VERSION_CODECEPTION=^2.2.0-RC2 \
     VERSION_YII2=^2.0.8 \
     PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
