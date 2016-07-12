@@ -1,5 +1,5 @@
-# PHP Docker image for Yii 2.0 Framework
-# ======================================
+# PHP Docker image for Yii 2.0 Framework runtime
+# ==============================================
 
 FROM php:7.0-fpm
 
@@ -93,6 +93,8 @@ RUN composer global require  --prefer-dist \
 
 # TODO: this is a workaround
 RUN composer config --global --unset github-oauth.github.com
+
+WORKDIR /app
 
 # Startup script for FPM
 CMD ["docker-run.sh"]
