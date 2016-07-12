@@ -5,6 +5,7 @@ FROM php:7.0-fpm
 
 # Install system packages for PHP extensions recommended for Phundament
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+    apt-key update && \
     apt-get update && \
     apt-get -y install \
             g++ \
