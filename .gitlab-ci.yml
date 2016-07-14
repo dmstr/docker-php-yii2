@@ -26,6 +26,7 @@ test:
     - docker-compose run --rm php codecept --version
     - docker-compose run --rm php phpunit --version
     - docker-compose run --rm php yii
+    - docker-compose run -e PHP_ENABLE_XDEBUG=1 --rm php php -i | grep xdebug
 
 test:allow-fail:
   stage: test
