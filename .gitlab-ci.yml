@@ -26,17 +26,17 @@ test:
     - docker-compose run --rm php codecept --version
     - docker-compose run --rm php phpunit --version
     - docker-compose run --rm php yii
-    - PHP_ENABLE_XDEBUG=1 docker-compose up -d
-    - sleep 5
-    - docker-compose exec php php -i | grep xdebug
-    - docker-compose up -d
-    - sleep 5
-    - docker-compose exec php php -i | grep xdebug
 
 test:allow-fail:
   stage: test
   script:
     - docker run ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
+    - PHP_ENABLE_XDEBUG=1 docker-compose up -d
+    - sleep 15
+    - docker-compose exec php php -i | grep xdebug
+    - docker-compose up -d
+    - sleep 10
+    - docker-compose exec php php -i | grep xdebug
   allow_failure: true
   except:
     - tags
