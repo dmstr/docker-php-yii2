@@ -35,6 +35,8 @@ test:allow-fail:
     - sleep 15
     - docker-compose exec php php -i | grep xdebug
     - docker-compose up -d
+    - docker-compose ps
+    - docker-compose logs
     - sleep 10
     - docker-compose exec php php -i | grep xdebug
   allow_failure: true
