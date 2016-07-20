@@ -87,6 +87,7 @@ RUN composer global require  --prefer-dist \
 RUN composer global require  --prefer-dist \
         "yiisoft/yii2:${VERSION_YII2}" \
         "yiisoft/yii2-bootstrap" \
+        "yiisoft/yii2-codeception" \
         "yiisoft/yii2-gii" \
         "yiisoft/yii2-debug" && \
     composer global dumpautoload --optimize
