@@ -9,3 +9,4 @@ services:
     image: ${STACK_PHP_IMAGE}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
+      - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
