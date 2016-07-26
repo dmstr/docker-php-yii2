@@ -51,6 +51,7 @@ RUN printf "\n" | pecl install apcu-5.1.3 xdebug-stable && \
 RUN npm install -g less lesshint google-closure-compiler
 
 ENV PHP_USER_ID=33 \
+    PHP_ENABLE_XDEBUG=0 \
     VERSION_COMPOSER_ASSET_PLUGIN=^1.2.0 \
     VERSION_PRESTISSIMO_PLUGIN=^0.3.0 \
     VERSION_CODECEPTION=^2.2.0-RC2 \
