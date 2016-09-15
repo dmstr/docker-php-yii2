@@ -10,3 +10,10 @@ services:
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
+  php-nginx:
+    build:
+      dockerfile: Dockerfile-fpm-nginx
+      context: '7.0'
+    image: ${STACK_PHP_IMAGE}-nginx
+    environment:
+      - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
