@@ -6,7 +6,12 @@ ADD https://github.com/jwilder/forego/releases/download/v0.16.1/forego /usr/loca
 RUN chmod u+x /usr/local/bin/forego
 
 # Install nginx
-RUN apt-get update && apt-get install -y --force-yes nginx-full
+RUN apt-get update \
+ && apt-get install -y --force-yes \
+            nginx-full \
+        --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add configuration files
 # TODO: temporary workaround for missing configs, use separate folder?
