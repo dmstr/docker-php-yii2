@@ -1,13 +1,18 @@
 Supported tags and respective `Dockerfile` links
 ================================================
 
-- `7.0-fpm`, `latest` ([7.0/fpm/Dockerfile](https://github.com/dmstr/docker-php-yii2/blob/master/7.0/Dockerfile-fpm))
+- `7.0-fpm`, `latest` ([7.0/fpm/Dockerfile-fpm](https://github.com/dmstr/docker-php-yii2/blob/master/7.0/Dockerfile-fpm))
+- `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-nginx](https://github.com/dmstr/docker-php-yii2/blob/master/7.0/Dockerfile-nginx))
 
+See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 Introduction
 ------------
 
-This is a Docker PHP image containing extensions and libraries for Yii 2.0 Framework.
+This is a Docker PHP image containing PHP extensions and composer packages and libraries for *Yii 2.0 Framework*. 
+It is primarily intended to build Yii 2.0 applications `FROM` this image, see below for available application templates.
+
+There is also an nginx flavour available for this image, in which PHP and nginx are managed with forego.
 
 
 Features
