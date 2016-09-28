@@ -44,7 +44,7 @@ Building the images
 
 Development bash    
 
-    docker run -it dmstr/php bash
+    docker run -it dmstr/php-yii2 bash
 
 
 Resources
