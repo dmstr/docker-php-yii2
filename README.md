@@ -53,7 +53,8 @@ Resources
 - [GitHub project](https://github.com/dmstr/docker-php-yii2)
 - [GitLab build](https://git.hrzg.de/dmstr/docker-php-yii2/builds)
 - [DockerHub image](https://hub.docker.com/r/dmstr/php-yii2/)
-- [phd5](https://github.com/dmstr/phd5-app) application template
+- [yii2-app](https://github.com/dmstr/docker-yii2-app) minimal application tempplate
+- [phd5](https://github.com/dmstr/phd5-app) standard application template
 - [phd5](https://github.com/dmstr/docs-phd5) documentation
 
 ---
