@@ -1,4 +1,4 @@
-FROM dmstr/php-yii2:7.0-fpm
+FROM dmstr/php-yii2:latest
 
 # Install Forego
 # TODO: use RUN curl ... for better build caching
