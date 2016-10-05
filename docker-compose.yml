@@ -3,7 +3,7 @@ services:
   php:
     build:
       dockerfile: Dockerfile-fpm
-      context: '7.0'
+      context: 'php-7.0'
       args:
         - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
     image: ${STACK_PHP_IMAGE}
@@ -13,7 +13,7 @@ services:
   php-nginx:
     build:
       dockerfile: Dockerfile-fpm-nginx
-      context: '7.0'
+      context: 'nginx'
     image: ${STACK_PHP_IMAGE}-nginx
     environment:
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
