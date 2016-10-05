@@ -1,8 +1,12 @@
 stages:
-  - build
-  - test
-  - release
+  - php-build
+  - php-test
+  - php-release
+  - nginx-build
+  - nginx-release
   - cleanup
+
+
 
 before_script:
   - export ISOLATION=buildref${CI_BUILD_REF}$(echo ${CI_BUILD_REF_NAME} | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]')
@@ -14,22 +18,25 @@ before_script:
   - echo "Building image"
   - echo ${STACK_PHP_IMAGE}
 
-build:
-  stage: build
-  script:
-    - docker-compose build --pull
 
-test:
-  stage: test
+
+build:php:
+  stage: php-build
+  script:
+    - docker-compose build --pull php
+
+test:php:
+  stage: php-test
   script:
     - docker-compose run --rm php composer --version
     - docker-compose run --rm php codecept --version
     - docker-compose run --rm php phpunit --version
     - docker-compose run --rm php yii
 
-test:allow-fail:
-  stage: test
+test:php:allow-fail:
+  stage: php-test
   script:
+    - cd php-7.0
     - docker run ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
     - PHP_ENABLE_XDEBUG=1 docker-compose up -d
     - sleep 15
@@ -43,21 +50,39 @@ test:allow-fail:
   except:
     - tags
 
-lint:
-  stage: test
+lint:php:
+  stage: php-test
   script:
+    - cd php-7.0
     - docker-compose run --rm php composer global show
 
-release:latest:
-  stage: release
+release:php:latest:
+  stage: php-release
   only:
     - latest
     - tags
   script:
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
     - docker push ${REGISTRY_PHP_IMAGE}
+
+
+
+build:nginx:
+  stage: nginx-build
+  script:
+    - cd nginx
+    - docker-compose build --pull php-nginx
+
+release:nginx:latest:
+  stage: nginx-release
+  only:
+    - latest
+    - tags
+  script:
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
+
+
 
 cleanup:
   stage: cleanup
