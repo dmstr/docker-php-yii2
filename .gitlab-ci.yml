@@ -23,7 +23,12 @@ before_script:
 build:php:
   stage: php-build
   script:
-    - docker-compose build --pull php php-alpine
+    - docker-compose build --pull php
+
+build:php-alpine:
+  stage: php-build
+  script:
+    - docker-compose build --pull php-alpine
 
 test:php:
   stage: php-test
@@ -79,11 +84,17 @@ release:php:latest:
 
 
 
-build:nginx:
+build:php-nginx:
   stage: nginx-build
   script:
     - cd nginx
-    - docker-compose build --pull php-nginx php-alpine-nginx
+    - docker-compose build --pull php-nginx
+
+build:php-alpine-nginx:
+  stage: nginx-build
+  script:
+    - cd nginx
+    - docker-compose build --pull php-alpine-nginx
 
 release:nginx:latest:
   stage: nginx-release
