@@ -23,11 +23,11 @@ services:
     build:
       dockerfile: Dockerfile-fpm-alpine
       context: 'php-7.0'
-    image: ${STACK_PHP_IMAGE}:latest-alpine
+    image: ${STACK_PHP_IMAGE}-alpine
   php-alpine-nginx:
     build:
       dockerfile: Dockerfile-fpm-alpine-nginx
       context: 'nginx'
-    image: ${STACK_PHP_IMAGE}:latest-alpine-nginx
+    image: ${STACK_PHP_IMAGE}-alpine-nginx
     ports:
       - '20790:80'
