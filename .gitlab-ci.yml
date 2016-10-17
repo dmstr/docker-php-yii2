@@ -3,6 +3,7 @@ stages:
   - php-test
   - php-release
   - nginx-build
+  - nginx-test
   - nginx-release
   - cleanup
 
@@ -39,16 +40,6 @@ test:php:
     - docker-compose run --rm php phpunit --version
     - docker-compose run --rm php yii
     - docker-compose run --rm php mysql --version
-
-test:php-alpine-nginx:
-  stage: php-test
-  script:
-    - docker-compose run --rm php-alpine-nginx php --version
-    - docker-compose run --rm php-alpine-nginx composer --version
-    - docker-compose run --rm php-alpine-nginx codecept --version
-    - docker-compose run --rm php-alpine-nginx phpunit --version
-    #- docker-compose run --rm php-alpine-nginx yii
-    - docker-compose run --rm php-alpine-nginx mysql --version
 
 test:php:allow-fail:
   stage: php-test
@@ -95,6 +86,16 @@ build:php-alpine-nginx:
   script:
     - cd nginx
     - docker-compose build --pull php-alpine-nginx
+
+test:php-alpine-nginx:
+  stage: nginx-test
+  script:
+    - docker-compose run --rm php-alpine-nginx php --version
+    - docker-compose run --rm php-alpine-nginx composer --version
+    - docker-compose run --rm php-alpine-nginx codecept --version
+    - docker-compose run --rm php-alpine-nginx phpunit --version
+    #- docker-compose run --rm php-alpine-nginx yii
+    - docker-compose run --rm php-alpine-nginx mysql --version
 
 release:nginx:latest:
   stage: nginx-release
