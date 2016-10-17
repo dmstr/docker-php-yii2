@@ -1,0 +1,15 @@
+FROM dmstr/php-yii2:latest-alpine
+
+# Install Forego
+RUN curl -L -o /usr/local/bin/forego https://github.com/jwilder/forego/releases/download/v0.16.1/forego
+RUN chmod u+x /usr/local/bin/forego
+
+# Install nginx
+RUN apk --update add nginx
+
+# Add configuration files
+COPY image-files/ /
+
+CMD ["forego", "start", "-r", "-f", "/root/Procfile"]
+
+EXPOSE 80 443

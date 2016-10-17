@@ -1,0 +1,71 @@
+# PHP Docker image for Yii 2.0 Framework runtime
+# ==============================================
+
+FROM php:7.1-fpm-alpine
+
+# Install system packages
+RUN apk --update add \
+          curl bash nodejs bash-completion mysql-client
+
+# Install PHP extensions required for Yii 2.0 Framework
+RUN docker-php-ext-configure bcmath && \
+    docker-php-ext-install gd \
+                           intl \
+                           pdo_mysql \
+                           mbstring \
+                           mcrypt \
+                           zip \
+                           bcmath \
+                           soap
+
+# Install less-compiler
+RUN npm install -g less lesshint google-closure-compiler
+
+# Install PECL extensions
+# see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
+RUN pecl install apcu xdebug
+
+# Configure library constraints
+ENV PHP_USER_ID=33 \
+    PHP_ENABLE_XDEBUG=0 \
+    VERSION_COMPOSER_ASSET_PLUGIN=^1.2.0 \
+    VERSION_PRESTISSIMO_PLUGIN=^0.3.0 \
+    VERSION_CODECEPTION=^2.2.5 \
+    VERSION_YII2=^2.0.9 \
+    PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
+    TERM=linux \
+    COMPOSER_ALLOW_SUPERUSER=1
+
+# Add configuration files
+COPY image-files/ /
+
+# Add GITHUB_API_TOKEN support for composer
+RUN echo "alias composer='composer.phar'" >> /root/.bashrc && \
+    chmod 700 \
+        /usr/local/bin/docker-entrypoint.sh \
+        /usr/local/bin/docker-run.sh \
+        /usr/local/bin/composer
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --filename=composer.phar \
+        --install-dir=/usr/local/bin && \
+    composer global require --optimize-autoloader \
+        "fxp/composer-asset-plugin:${VERSION_COMPOSER_ASSET_PLUGIN}" \
+        "hirak/prestissimo:${VERSION_PRESTISSIMO_PLUGIN}" && \
+    composer global dumpautoload --optimize
+
+# Install CLI packages required for Yii 2.0 Framework globally
+RUN composer global require  --prefer-dist \
+        "codeception/codeception:${VERSION_CODECEPTION}" \
+        "codeception/specify:*" \
+        "codeception/verify:*" && \
+    composer global dumpautoload --optimize
+
+
+WORKDIR /app
+
+# Startup script for FPM
+### TODO, review --- ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["docker-run.sh"]
+
