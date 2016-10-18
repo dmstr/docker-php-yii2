@@ -12,7 +12,7 @@ sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /usr/local/etc/php/conf
 usermod -u ${PHP_USER_ID} www-data
 
 # Enable xdebug by ENV variable
-if [ -n "${PHP_ENABLE_XDEBUG}" ] ; then
+if [ 0 -ne "${PHP_ENABLE_XDEBUG}" ] ; then
     docker-php-ext-enable xdebug
     echo "Enabled xdebug"
 fi
