@@ -1,8 +1,12 @@
 Supported tags and respective `Dockerfile` links
 ================================================
 
-- `7.0-fpm`, `latest` ([7.0/fpm/Dockerfile-fpm](https://github.com/dmstr/docker-php-yii2/blob/master/php-7.0/Dockerfile-fpm))
-- `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-nginx](https://github.com/dmstr/docker-php-yii2/blob/master/nginx/Dockerfile-fpm-nginx))
+- `7.0-fpm`, `latest` ([7.0/fpm/Dockerfile-fpm](php-7.0/Dockerfile-fpm))
+
+### Experimental
+
+- :b: `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
+- :a: `7.0-fpm-alpine-nginx` ([7.0/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
