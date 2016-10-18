@@ -107,8 +107,8 @@ release:nginx:latest:
   script:
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
-    - docker tag ${STACK_PHP_IMAGE}-nginx-alpine ${REGISTRY_PHP_IMAGE}-nginx-alpine
-    - docker push ${REGISTRY_PHP_IMAGE}-nginx-alpine
+    - docker tag ${STACK_PHP_IMAGE}-nginx-alpine ${REGISTRY_PHP_IMAGE}-alpine-nginx
+    - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx
 
 
 
