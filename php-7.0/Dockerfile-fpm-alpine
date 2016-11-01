@@ -28,6 +28,7 @@ RUN pecl install apcu xdebug
 # Configure library constraints
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \
+    VERSION_COMPOSER_MERGE_PLUGIN=^1.3.1 \
     VERSION_COMPOSER_ASSET_PLUGIN=^1.2.0 \
     VERSION_PRESTISSIMO_PLUGIN=^0.3.0 \
     VERSION_CODECEPTION=^2.2.6 \
@@ -51,6 +52,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
         --filename=composer.phar \
         --install-dir=/usr/local/bin && \
     composer global require --optimize-autoloader \
+        "wikimedia/composer-merge-plugin:${VERSION_COMPOSER_MERGE_PLUGIN}" \
         "fxp/composer-asset-plugin:${VERSION_COMPOSER_ASSET_PLUGIN}" \
         "hirak/prestissimo:${VERSION_PRESTISSIMO_PLUGIN}" && \
     composer global dumpautoload --optimize
