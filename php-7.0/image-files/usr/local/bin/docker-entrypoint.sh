@@ -9,7 +9,9 @@ set -o errexit
 sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /usr/local/etc/php/conf.d/app.ini
 
 # Set permissions based on ENV variable
-usermod -u ${PHP_USER_ID} www-data
+if [ -x "usermod" ] ; then
+    usermod -u ${PHP_USER_ID} www-data
+fi
 
 # Enable xdebug by ENV variable
 if [ 0 -ne "${PHP_ENABLE_XDEBUG}" ] ; then
