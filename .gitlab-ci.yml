@@ -105,6 +105,7 @@ release:nginx:latest:
     - latest
     - tags
   script:
+    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
     - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE}-alpine-nginx
