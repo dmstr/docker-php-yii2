@@ -70,6 +70,7 @@ release:php:latest:
     - latest
     - tags
   script:
+    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
     - docker push ${REGISTRY_PHP_IMAGE}
     - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE}-alpine
