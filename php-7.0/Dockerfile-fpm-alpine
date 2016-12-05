@@ -17,6 +17,7 @@ RUN docker-php-ext-configure bcmath && \
         gd \
         curl \
         iconv \
+        exif \
         intl \
         pdo_mysql \
         mbstring \
