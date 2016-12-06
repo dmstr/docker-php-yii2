@@ -18,13 +18,17 @@ RUN docker-php-ext-configure bcmath && \
         curl \
         iconv \
         exif \
-        intl \
         pdo_mysql \
         mbstring \
         mcrypt \
         zip \
         bcmath \
         soap
+        
+# fix for broken ext/intl install
+RUN apk add --update --no-cache libintl icu icu-dev && \
+    docker-php-ext-install intl && \
+    apk del icu-dev
 
 # Install PECL extensions
 # see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
