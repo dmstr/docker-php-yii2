@@ -24,6 +24,8 @@ services:
       dockerfile: Dockerfile-fpm-alpine
       context: 'php-7.0'
     image: ${STACK_PHP_IMAGE}-alpine
+    volumes:
+      - ./test:/test
   php-alpine-nginx:
     build:
       dockerfile: Dockerfile-fpm-alpine-nginx

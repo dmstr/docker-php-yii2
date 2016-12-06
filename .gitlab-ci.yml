@@ -40,6 +40,7 @@ test:php-alpine:
   stage: php-test
   script:
     - PHP_SERVICE=php-alpine sh test/image-commands.sh
+    - docker-compose run --rm php-alpine php /test/requirements.php
 
 test:php:allow-fail:
   stage: php-test
