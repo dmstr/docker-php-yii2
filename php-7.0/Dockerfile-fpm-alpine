@@ -5,6 +5,7 @@ FROM php:7.0-fpm-alpine
 
 # Install system packages
 RUN apk --update add \
+        git \
         curl \
         bash \
         bash-completion \
