@@ -9,22 +9,26 @@ RUN apk --update add \
         bash \
         bash-completion \
         nodejs \
-        mysql-client
+        mysql-client \
+        libpng-dev \
+        curl-dev \
+        libmcrypt-dev \
+        libxml2-dev
 
 # Install PHP extensions required for Yii 2.0 Framework
 RUN docker-php-ext-configure bcmath && \
     docker-php-ext-install \
-        gd \
-        curl \
-        iconv \
-        exif \
-        pdo_mysql \
-        mbstring \
+        soap \
         mcrypt \
         zip \
+        curl \
         bcmath \
-        soap
-        
+        exif \
+        gd \
+        iconv \
+        mbstring \
+        pdo_mysql
+
 # fix for broken ext/intl install
 RUN apk add --update --no-cache libintl icu icu-dev && \
     docker-php-ext-install intl && \
