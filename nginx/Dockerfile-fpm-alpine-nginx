@@ -7,8 +7,9 @@ RUN chmod u+x /usr/local/bin/forego
 # Install nginx
 RUN apk --update add nginx
 
-# Add configuration files
+# Add configuration files, Note: nginx runs under `www-data`
 COPY image-files/ /
+RUN chown -R www-data:www-data /var/lib/nginx/
 
 CMD ["forego", "start", "-r", "-f", "/root/Procfile"]
 
