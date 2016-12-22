@@ -10,7 +10,7 @@ stages:
 
 
 before_script:
-  - export ISOLATION=buildref${CI_BUILD_REF}$(echo ${CI_BUILD_REF_NAME} | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]')
+  - export ISOLATION=buildpipeline{CI_BUILD_PIPELINE}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}
   - export APP_VERSION=$(git describe --always --dirty)
   - export PHP_IMAGE_NAME=dmstr/php-yii2
