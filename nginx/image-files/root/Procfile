@@ -1,2 +1,3 @@
 nginx: nginx -g 'daemon off;'
 phpfpm: docker-run.sh
+cron: crond -f
