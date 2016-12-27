@@ -31,5 +31,9 @@ services:
       dockerfile: Dockerfile-fpm-alpine-nginx
       context: 'nginx'
     image: ${STACK_PHP_IMAGE}-alpine-nginx
-    ports:
-      - '20790:80'
+
+  php-alpine-nginx-xdebug:
+    build:
+      dockerfile: Dockerfile-fpm-alpine-nginx-xdebug
+      context: 'nginx'
+    image: ${STACK_PHP_IMAGE}-alpine-nginx-xdebug
