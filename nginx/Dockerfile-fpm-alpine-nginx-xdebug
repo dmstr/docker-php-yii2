@@ -1,8 +1,7 @@
 FROM dmstr/php-yii2:latest-alpine-nginx
 
-RUN apk --no-cache --virtual add \
-    g++ \
-    autoconf \
-    make
-
-RUN pecl install xdebug
+RUN apk --no-cache add --virtual .build-deps \
+        g++ \
+        autoconf \
+        make \
+ && pecl install xdebug

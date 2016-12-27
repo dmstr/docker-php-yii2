@@ -124,7 +124,7 @@ build:php-alpine-nginx-xdebug:
 test:php-alpine-nginx-xdebug:
   stage: nginx-xdebug-test
   script:
-    - docker-compose run --rm php-alpine-nginx-xdebug php -i
+    - docker-compose run --rm -e PHP_ENABLE_XDEBUG=1 php-alpine-nginx-xdebug php -i | grep xdebug
 
 release:nginx-xdebug:latest:
   stage: nginx-xdebug-release
