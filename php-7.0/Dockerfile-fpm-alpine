@@ -36,8 +36,7 @@ RUN apk add --update --no-cache libintl icu icu-dev && \
     apk del icu-dev
 
 # Install PECL extensions
-# see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
-RUN pecl install apcu xdebug
+RUN pecl install apcu
 
 # Install less-compiler
 RUN npm install -g \

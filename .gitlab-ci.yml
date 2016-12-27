@@ -5,8 +5,10 @@ stages:
   - nginx-build
   - nginx-test
   - nginx-release
+  - nginx-xdebug-build
+  - nginx-xdebug-test
+  - nginx-xdebug-release
   - cleanup
-
 
 
 before_script:
@@ -98,7 +100,6 @@ test:php-alpine-nginx:
     - docker-compose run --rm php-alpine-nginx composer --version
     - docker-compose run --rm php-alpine-nginx codecept --version
     - docker-compose run --rm php-alpine-nginx phpunit --version
-    #- docker-compose run --rm php-alpine-nginx yii
     - docker-compose run --rm php-alpine-nginx mysql --version
 
 release:nginx:latest:
@@ -112,6 +113,28 @@ release:nginx:latest:
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
     - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE}-alpine-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx
+
+
+build:php-alpine-nginx-xdebug:
+  stage: nginx-xdebug-build
+  script:
+    - cd nginx
+    - docker-compose build --pull php-alpine-nginx-xdebug
+
+test:php-alpine-nginx-xdebug:
+  stage: nginx-xdebug-test
+  script:
+    - docker-compose run --rm php-alpine-nginx-xdebug php -i
+
+release:nginx-xdebug:latest:
+  stage: nginx-xdebug-release
+  only:
+    - latest
+    - tags
+  script:
+    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
+    - docker tag ${STACK_PHP_IMAGE}-nginx-xdebug ${REGISTRY_PHP_IMAGE}-nginx-xdebug
+    - docker push ${REGISTRY_PHP_IMAGE}-nginx-xdebug
 
 
 
