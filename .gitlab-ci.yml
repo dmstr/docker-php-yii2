@@ -126,15 +126,15 @@ test:php-alpine-nginx-xdebug:
   script:
     - docker-compose run --rm -e PHP_ENABLE_XDEBUG=1 php-alpine-nginx-xdebug php -i | grep xdebug
 
-release:nginx-xdebug:latest:
+release:php-alpine-nginx-xdebug:latest:
   stage: nginx-xdebug-release
   only:
     - latest
     - tags
   script:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
-    - docker tag ${STACK_PHP_IMAGE}-nginx-xdebug ${REGISTRY_PHP_IMAGE}-nginx-xdebug
-    - docker push ${REGISTRY_PHP_IMAGE}-nginx-xdebug
+    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
+    - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
 
 
 
