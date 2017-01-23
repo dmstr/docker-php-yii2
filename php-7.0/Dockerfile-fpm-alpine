@@ -3,21 +3,30 @@
 
 FROM php:7.0-fpm-alpine
 
-# Install system packages
+# Install system packages & PHP extensions required for Yii 2.0 Framework
 RUN apk --update add \
         git \
         curl \
+        curl-dev \
         bash \
         bash-completion \
-        nodejs \
-        mysql-client \
-        libpng-dev \
-        curl-dev \
+        freetype-dev \
+        icu \
+        icu-dev \
         libmcrypt-dev \
-        libxml2-dev
-
-# Install PHP extensions required for Yii 2.0 Framework
-RUN docker-php-ext-configure bcmath && \
+        libxml2-dev \
+        libintl \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        mysql-client \
+        nodejs \
+        postgresql-dev && \
+    docker-php-ext-configure gd \
+        --with-gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-png-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure bcmath && \
     docker-php-ext-install \
         soap \
         mcrypt \
@@ -27,16 +36,33 @@ RUN docker-php-ext-configure bcmath && \
         exif \
         gd \
         iconv \
+        intl \
         mbstring \
-        pdo_mysql
-
-# fix for broken ext/intl install
-RUN apk add --update --no-cache libintl icu icu-dev && \
-    docker-php-ext-install intl && \
-    apk del icu-dev
+        pdo_mysql \
+        pdo_pgsql && \
+    apk del \
+        icu-dev \
+        gcc \
+        g++
 
 # Install PECL extensions
-RUN pecl install apcu
+RUN pecl install \
+        apcu \
+        imagick
+
+# memcache
+ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev git
+RUN set -xe \
+ && apk add --no-cache \
+     --virtual .memcached-deps \
+     $MEMCACHED_DEPS \
+ && curl https://codeload.github.com/php-memcached-dev/php-memcached/zip/php7 -o /tmp/memcached.zip \
+ && mkdir -p /usr/src/php/ext \
+ && unzip /tmp/memcached.zip -d /usr/src/php/ext \
+ && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 \
+     --disable-memcached-sasl \
+ && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
+ && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
 
 # Install less-compiler
 RUN npm install -g \
