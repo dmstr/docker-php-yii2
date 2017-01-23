@@ -37,6 +37,7 @@ test:php:
   stage: php-test
   script:
     - PHP_SERVICE=php sh test/image-commands.sh
+    - docker-compose run --rm php php /test/requirements.php
 
 test:php-alpine:
   stage: php-test

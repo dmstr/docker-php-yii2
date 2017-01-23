@@ -3,7 +3,7 @@
 
 FROM php:7.0-fpm
 
-# Install system packages for PHP extensions recommended for Phundament
+# Install system packages for PHP extensions recommended for Yii 2.0 Framework
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
     apt-key update && \
     apt-get update && \
