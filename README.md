@@ -6,7 +6,8 @@ Supported tags and respective `Dockerfile` links
 ### Experimental
 
 - :b: `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
-- :a: `7.0-fpm-alpine-nginx` ([7.0/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
+- :b: `7.0-fpm-alpine-nginx` ([7.0/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
+- :a: `7.0-fpm-alpine-nginx-xdebug` ([7.0/fpm/Dockerfile-fpm-alpine-nginx-xdebug](nginx/Dockerfile-fpm-alpine-nginx-xdebug))
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
