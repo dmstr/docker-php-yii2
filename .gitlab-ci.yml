@@ -12,7 +12,7 @@ stages:
 
 
 before_script:
-  - export ISOLATION=buildpipeline{CI_BUILD_PIPELINE}
+  - export ISOLATION=buildpipeline${CI_BUILD_PIPELINE}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}
   - export APP_VERSION=$(git describe --always --dirty)
   - export PHP_IMAGE_NAME=dmstr/php-yii2
@@ -36,13 +36,18 @@ build:php-alpine:
 test:php:
   stage: php-test
   script:
-    - PHP_SERVICE=php sh test/image-commands.sh
+    - export PHP_SERVICE=php
+    - sh test/prod.sh
+    - sh test/dev.sh
+    - sh test/debug.sh
     - docker-compose run --rm php php /test/requirements.php
 
 test:php-alpine:
   stage: php-test
   script:
-    - PHP_SERVICE=php-alpine sh test/image-commands.sh
+    - export PHP_SERVICE=php-alpine
+    - sh test/prod.sh
+    - sh test/dev.sh
     - docker-compose run --rm php-alpine php /test/requirements.php
 
 test:php:allow-fail:
@@ -50,14 +55,6 @@ test:php:allow-fail:
   script:
     - cd php-7.0
     - docker run ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
-    - PHP_ENABLE_XDEBUG=1 docker-compose up -d
-    - sleep 15
-    - docker-compose exec php php -i | grep xdebug
-    - docker-compose up -d
-    - docker-compose ps
-    - docker-compose logs
-    - sleep 10
-    - docker-compose exec php php -i | grep xdebug
   allow_failure: true
   except:
     - tags
@@ -97,11 +94,9 @@ build:php-alpine-nginx:
 test:php-alpine-nginx:
   stage: nginx-test
   script:
-    - docker-compose run --rm php-alpine-nginx php --version
-    - docker-compose run --rm php-alpine-nginx composer --version
-    - docker-compose run --rm php-alpine-nginx codecept --version
-    - docker-compose run --rm php-alpine-nginx phpunit --version
-    - docker-compose run --rm php-alpine-nginx mysql --version
+    - sh test/prod.sh
+    - sh test/dev.sh
+    - docker-compose run --rm php-alpine-nginx nginx -v
 
 release:nginx:latest:
   stage: nginx-release
@@ -125,7 +120,9 @@ build:php-alpine-nginx-xdebug:
 test:php-alpine-nginx-xdebug:
   stage: nginx-xdebug-test
   script:
-    - docker-compose run --rm -e PHP_ENABLE_XDEBUG=1 php-alpine-nginx-xdebug php -i | grep xdebug
+    - sh test/debug.sh
+
+
 
 release:php-alpine-nginx-xdebug:latest:
   stage: nginx-xdebug-release

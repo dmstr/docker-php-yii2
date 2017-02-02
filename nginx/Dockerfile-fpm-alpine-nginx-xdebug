@@ -4,4 +4,5 @@ RUN apk --no-cache add --virtual .build-deps \
         g++ \
         autoconf \
         make \
- && pecl install xdebug
+ && pecl install xdebug \
+ && apk del .build-deps

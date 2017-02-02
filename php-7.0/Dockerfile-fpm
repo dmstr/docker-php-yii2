@@ -38,6 +38,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
                            pdo_mysql \
                            mbstring \
                            mcrypt \
+                           opcache \
                            zip \
                            bcmath \
                            soap
