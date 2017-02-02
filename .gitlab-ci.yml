@@ -12,7 +12,7 @@ stages:
 
 
 before_script:
-  - export ISOLATION=buildpipeline${CI_BUILD_PIPELINE}
+  - export ISOLATION=buildpipeline${CI_BUILD_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}
   - export APP_VERSION=$(git describe --always --dirty)
   - export PHP_IMAGE_NAME=dmstr/php-yii2
