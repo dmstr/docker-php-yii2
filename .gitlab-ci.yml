@@ -45,6 +45,7 @@ test:php:
 test:php-alpine:
   stage: php-test
   script:
+    - export PHP_SERVICE=php-alpine
     - sh test/prod.sh
     - sh test/dev.sh
     - docker-compose run --rm php-alpine php /test/requirements.php

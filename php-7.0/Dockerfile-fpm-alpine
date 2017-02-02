@@ -38,6 +38,7 @@ RUN apk --update add \
         iconv \
         intl \
         mbstring \
+        opcache \
         pdo_mysql \
         pdo_pgsql && \
     apk del \
