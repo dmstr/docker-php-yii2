@@ -11,6 +11,7 @@ RUN apk --update add nginx
 # Note: chmod is a workaround for esotheric permissions issues on Alpine
 COPY image-files/ /
 RUN chown -R www-data:www-data /var/lib/nginx/ \
+ && mkdir -p /var/lib/nginx/tmp/client_body/ \
  && chmod 777 /var/lib/nginx/tmp/client_body/
 
 # forward request and error logs to docker log collector
