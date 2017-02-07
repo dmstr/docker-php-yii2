@@ -8,8 +8,10 @@ RUN chmod u+x /usr/local/bin/forego
 RUN apk --update add nginx
 
 # Add configuration files, Note: nginx runs under `www-data`
+# Note: chmod is a workaround for esotheric permissions issues on Alpine
 COPY image-files/ /
-RUN chown -R www-data:www-data /var/lib/nginx/
+RUN chown -R www-data:www-data /var/lib/nginx/ \
+ && chmod 777 /var/lib/nginx/tmp/client_body/
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
