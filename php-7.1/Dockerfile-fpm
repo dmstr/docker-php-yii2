@@ -67,8 +67,7 @@ COPY image-files/ /
 
 # Add GITHUB_API_TOKEN support for composer
 ARG GITHUB_API_TOKEN
-RUN echo "alias composer='composer.phar'" >> /root/.bashrc && \
-    chmod 700 \
+RUN chmod 700 \
         /usr/local/bin/docker-entrypoint.sh \
         /usr/local/bin/docker-run.sh \
         /usr/local/bin/composer

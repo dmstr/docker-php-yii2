@@ -8,3 +8,9 @@ docker-compose run --rm ${PHP_SERVICE} php --version
 
 # better check loaded module list
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i opcache
+
+# check composer auth
+docker-compose run --rm ${PHP_SERVICE} sh -c '\
+    composer && \
+    [ -f ~/.composer/auth.json ] || exit 1 \
+    '
