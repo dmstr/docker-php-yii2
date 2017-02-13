@@ -53,7 +53,7 @@ test:php-alpine:
 test:php:allow-fail:
   stage: php-test
   script:
-    - cd php-7.0
+    - cd php-7.1
     - docker run --rm ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
   allow_failure: true
   except:
@@ -62,7 +62,7 @@ test:php:allow-fail:
 lint:php:
   stage: php-test
   script:
-    - cd php-7.0
+    - cd php-7.1
     - docker-compose run --rm php composer global show
 
 release:php:latest:
