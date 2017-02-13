@@ -10,7 +10,7 @@ docker-compose run --rm ${PHP_SERVICE} php --version
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i opcache
 
 # check composer auth
-docker-compose run --rm ${PHP_SERVICE} sh -c '\
+docker-compose run -e GITHUB_API_TOKEN=abcd12345 --rm ${PHP_SERVICE} sh -c '\
     composer && \
     [ -f ~/.composer/auth.json ] || exit 1 \
     '
