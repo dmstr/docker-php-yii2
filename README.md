@@ -1,13 +1,19 @@
 Supported tags and respective `Dockerfile` links
 ================================================
 
-- `7.0-fpm`, `latest` ([7.0/fpm/Dockerfile-fpm](php-7.0/Dockerfile-fpm))
+- `7.0-fpm-1.9`, `7.0-fpm` ([7.0/fpm/Dockerfile-fpm](php-7.0/Dockerfile-fpm))
+- `7.1-fpm-2.0-beta1`, `7.1-fpm`, `latest` ([7.1/fpm/Dockerfile-fpm](php-7.1/Dockerfile-fpm))
+- `7.1-fpm-2.0-beta1-nginx`, `7.1-fpm-nginx` ([7.1/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
+- `7.1-fpm-2.0-beta1-alpine-nginx`, `7.1-fpm-alpine-nginx` ([7.1/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
+
+:information_source: `7.0-fpm-1.9` is based on PHP *7.0.15*
 
 ### Experimental
 
-- :b: `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
-- :b: `7.0-fpm-alpine-nginx` ([7.0/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
-- :a: `7.0-fpm-alpine-nginx-xdebug` ([7.0/fpm/Dockerfile-fpm-alpine-nginx-xdebug](nginx/Dockerfile-fpm-alpine-nginx-xdebug))
+- :b: `7.0-fpm-1.9-nginx`, `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
+- :b: `7.0-fpm-1.9-alpine-nginx`, `7.0-fpm-alpine-nginx` ([7.0/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
+- :a: `7.0-fpm-1.9-alpine-nginx-xdebug`, `7.0-fpm-alpine-nginx-xdebug` ([7.0/fpm/Dockerfile-fpm-alpine-nginx-xdebug](nginx/Dockerfile-fpm-alpine-nginx-xdebug))
+- :a: `7.1-fpm-2.0-beta1-alpine-nginx-xdebug`, `7.1-fpm-alpine-nginx-xdebug` ([7.1/fpm/Dockerfile-fpm-alpine-nginx-xdebug](nginx/Dockerfile-fpm-alpine-nginx-xdebug))
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
@@ -29,7 +35,17 @@ Features
  - `codecept`
  - `phpunit`
  - `yii`
- 
+
+#### Availability matrix
+
+| Command  | fpm  | fpm-alpine | fpm-alpine-nginx | fpm-alpine-nginx-debug |
+|----------|------|------------|------------------|------------------------|
+| *xdebug* | :ok: | :x:  | :x:  | :ok: |
+| codecept | :ok: | :ok: | :ok: | :ok: |
+| composer | :ok: | :ok: | :ok: | :ok: |
+| phpunit  | :ok: | :ok: | :ok: | :ok: |
+| yii      | :ok: | :ok: | :ok: | :ok: |
+| npm      | :ok: | :ok: | :ok: | :ok: |
 
 Configuration
 -------------
