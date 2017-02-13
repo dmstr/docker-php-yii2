@@ -21,6 +21,10 @@ before_script:
   - echo "Building image"
   - echo ${STACK_PHP_IMAGE}
 
+after_script:
+  - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
+  - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
+  - docker-compose down -v
 
 
 build:php:
@@ -133,12 +137,3 @@ release:php-alpine-nginx-xdebug:latest:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
     - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
-
-
-
-cleanup:
-  stage: cleanup
-  script:
-    - docker-compose kill
-    - docker-compose rm -fv --all
-    - docker-compose down --rmi local --volumes
