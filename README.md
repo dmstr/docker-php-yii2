@@ -17,6 +17,8 @@ Supported tags and respective `Dockerfile` links
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
+[![build status](https://git.hrzg.de/dmstr/docker-php-yii2/badges/master/build.svg)](https://git.hrzg.de/dmstr/docker-php-yii2/commits/master)
+
 Introduction
 ------------
 
