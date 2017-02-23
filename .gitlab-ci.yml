@@ -18,6 +18,7 @@ before_script:
   - export PHP_IMAGE_NAME=dmstr/php-yii2
   - export STACK_PHP_IMAGE=${PHP_IMAGE_NAME}:${APP_VERSION}
   - export REGISTRY_PHP_IMAGE=${PHP_IMAGE_NAME}:${CI_BUILD_REF_NAME}
+  - export REGISTRY_PHP_IMAGE_LATEST=${PHP_IMAGE_NAME}:latest
   - echo "Building image"
   - echo ${STACK_PHP_IMAGE}
 
@@ -76,6 +77,17 @@ release:php:latest:
     - tags
   script:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
+    - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE_LATEST}
+    - docker push ${REGISTRY_PHP_IMAGE_LATEST}
+    - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE_LATEST}-alpine
+    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine
+
+release:php:tags:
+  stage: php-release
+  only:
+    - tags
+  script:
+    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
     - docker push ${REGISTRY_PHP_IMAGE}
     - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE}-alpine
@@ -109,6 +121,17 @@ release:nginx:latest:
     - tags
   script:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
+    - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE_LATEST}-nginx
+    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-nginx
+    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx
+    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx
+
+release:nginx:tag:
+  stage: nginx-release
+  only:
+    - tags
+  script:
+    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
     - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE}-alpine-nginx
@@ -135,5 +158,14 @@ release:php-alpine-nginx-xdebug:latest:
     - tags
   script:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
-    - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
+    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx-xdebug
+    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx-xdebug
+
+release:php-alpine-nginx-xdebug:tag:
+  stage: nginx-xdebug-release
+  only:
+    - tags
+  script:
+    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
+    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx-xdebug
+    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx-xdebug
