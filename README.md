@@ -59,9 +59,6 @@ Configuration
  - `PHP_USER_ID`
  - `PHP_ENABLE_XDEBUG`
 
-### Build ARGs
-
- - `GITHUB_API_TOKEN`
 
 Development
 -----------

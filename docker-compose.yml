@@ -5,8 +5,6 @@ services:
     build:
       dockerfile: Dockerfile-fpm
       context: 'php-7.1'
-      args:
-        - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
     image: ${STACK_PHP_IMAGE}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}

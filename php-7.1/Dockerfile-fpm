@@ -64,8 +64,6 @@ ENV PHP_USER_ID=33 \
 # Add configuration files
 COPY image-files/ /
 
-# Add GITHUB_API_TOKEN support for composer
-ARG GITHUB_API_TOKEN
 RUN chmod 700 \
         /usr/local/bin/docker-entrypoint.sh \
         /usr/local/bin/docker-run.sh \
