@@ -5,9 +5,6 @@
 # Fail on any error
 set -o errexit
 
-# Setup config variables only available at runtime
-sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /usr/local/etc/php/conf.d/app.ini
-
 # Set permissions based on ENV variable
 if [ -x "usermod" ] ; then
     usermod -u ${PHP_USER_ID} www-data

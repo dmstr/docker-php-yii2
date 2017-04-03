@@ -55,7 +55,6 @@ Configuration
 ### ENV variables
 
  - `GITHUB_API_TOKEN`
- - `DISPLAY_PHP_ERRORS`
  - `PHP_USER_ID`
  - `PHP_ENABLE_XDEBUG`
 
