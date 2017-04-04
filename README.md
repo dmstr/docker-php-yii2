@@ -55,8 +55,8 @@ Configuration
 ### ENV variables
 
  - `GITHUB_API_TOKEN`
- - `PHP_USER_ID`
  - `PHP_ENABLE_XDEBUG`
+ - `PHP_USER_ID` (debian only)
 
 
 Development
