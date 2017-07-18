@@ -2,9 +2,7 @@
 
 PHP_SERVICE=${PHP_SERVICE-php}
 
-docker-compose run --rm ${PHP_SERVICE} composer --version
-docker-compose run --rm ${PHP_SERVICE} codecept --version
-docker-compose run --rm ${PHP_SERVICE} phpunit --version
-docker-compose run --rm ${PHP_SERVICE} mysql --version
-docker-compose run --rm ${PHP_SERVICE} git --version
-docker-compose run --rm ${PHP_SERVICE} npm --version
+docker-compose run --rm ${PHP_SERVICE} composer --version || exit 1
+docker-compose run --rm ${PHP_SERVICE} mysql --version || exit 1
+docker-compose run --rm ${PHP_SERVICE} git --version || exit 1
+docker-compose run --rm ${PHP_SERVICE} npm --version || exit 1
