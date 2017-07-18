@@ -4,18 +4,23 @@
 FROM php:7.1.7-fpm-alpine
 
 # Install system packages & PHP extensions required for Yii 2.0 Framework
-RUN apk --update --virtual build-deps add \
-        autoconf \
-        make \
-        gcc \
-        g++ \
-        libtool \
+# virtual pkg names and ENV $PHPIZE_DEPS are definied in base image
+# C* and LDFlAGS are also definied in base image, so we use these for our custom pecl builds
+# we install (newer) imagick from edge repo due to SEGFAULT bugs
+# hopefully this won't break other things...
+RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS && \
+    apk add --no-cache --virtual .imagemagick-edge imagemagick imagemagick-dev \
+        --no-cache \
+        --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
+        --allow-untrusted && \
+    apk --update --virtual .pecl-build-deps add \
         icu-dev \
         curl-dev \
         freetype-dev \
         imagemagick-dev \
         pcre-dev \
         postgresql-dev \
+        libtool \
         libmcrypt-dev \
         libjpeg-turbo-dev \
         libpng-dev \
@@ -37,10 +42,13 @@ RUN apk --update --virtual build-deps add \
         libxml2 \
         mysql-client \
         nodejs \
-        postgresql && \
+        postgresql-client && \
+    export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" && \
     pecl install \
         apcu \
-        imagick && \
+        imagick-3.4.3 && \
+    docker-php-ext-enable imagick && \
+    docker-php-ext-enable apcu && \
     docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
@@ -62,10 +70,8 @@ RUN apk --update --virtual build-deps add \
         pdo_mysql \
         pdo_pgsql && \
     apk del \
-        build-deps
+        .pecl-build-deps .phpize-deps
 
-RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/pecl-apcu.ini \
- && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/pecl-imagick.ini
 
 # memcache
 ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev git
