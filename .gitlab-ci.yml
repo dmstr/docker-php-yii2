@@ -1,12 +1,12 @@
 stages:
   - php-build
   - php-test
-  - php-release
   - nginx-build
   - nginx-test
-  - nginx-release
   - nginx-xdebug-build
   - nginx-xdebug-test
+  - php-release
+  - nginx-release
   - nginx-xdebug-release
   - cleanup
 

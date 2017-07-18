@@ -4,24 +4,43 @@
 FROM php:7.1.7-fpm-alpine
 
 # Install system packages & PHP extensions required for Yii 2.0 Framework
-RUN apk --update add \
+RUN apk --update --virtual build-deps add \
         autoconf \
-        git \
-        curl \
-        curl-dev \
-        bash \
-        bash-completion \
-        freetype-dev \
-        icu \
+        make \
+        gcc \
+        g++ \
+        libtool \
         icu-dev \
+        curl-dev \
+        freetype-dev \
+        imagemagick-dev \
+        pcre-dev \
+        postgresql-dev \
         libmcrypt-dev \
-        libxml2-dev \
-        libintl \
         libjpeg-turbo-dev \
         libpng-dev \
+        libxml2-dev && \
+    apk add \
+        git \
+        curl \
+        bash \
+        bash-completion \
+        icu \
+        pcre \
+        freetype \
+        libmcrypt \
+        libintl \
+        libjpeg-turbo \
+        imagemagick \
+        libpng \
+        libltdl \
+        libxml2 \
         mysql-client \
         nodejs \
-        postgresql-dev && \
+        postgresql && \
+    pecl install \
+        apcu \
+        imagick && \
     docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
@@ -43,14 +62,10 @@ RUN apk --update add \
         pdo_mysql \
         pdo_pgsql && \
     apk del \
-        icu-dev \
-        gcc \
-        g++
+        build-deps
 
-# Install PECL extensions
-RUN pecl install \
-        apcu \
-        imagick
+RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/pecl-apcu.ini \
+ && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/pecl-imagick.ini
 
 # memcache
 ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev git
