@@ -15,7 +15,9 @@ services:
     build:
       dockerfile: Dockerfile-fpm-nginx
       context: 'nginx'
-    image: ${STACK_PHP_IMAGE}-nginx
+      args:
+        - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
+    image: ${STACK_PHP_IMAGE}-nginx:${PHP_IMAGE_VERSION}
     environment:
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
 
@@ -23,6 +25,8 @@ services:
     build:
       dockerfile: Dockerfile-fpm-alpine
       context: 'php'
+      args:
+        - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
     image: ${STACK_PHP_IMAGE}-alpine
     volumes:
       - ./test:/test

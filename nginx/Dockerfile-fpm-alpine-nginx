@@ -1,4 +1,5 @@
-FROM dmstr/php-yii2:latest-alpine
+ARG PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
+FROM dmstr/php-yii2:${PHP_IMAGE_VERSION}-alpine
 
 # Install Forego
 RUN curl -L -o /usr/local/bin/forego https://github.com/jwilder/forego/releases/download/v0.16.1/forego
