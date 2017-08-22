@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: Dockerfile-fpm
       context: 'php'
-    image: ${STACK_PHP_IMAGE}:${PHP_IMAGE_VERSION}
+    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
@@ -17,7 +17,7 @@ services:
       context: 'nginx'
       args:
         - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
-    image: ${STACK_PHP_IMAGE}-nginx:${PHP_IMAGE_VERSION}
+    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-nginx
     environment:
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
 
@@ -27,11 +27,11 @@ services:
       context: 'php'
       args:
         - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
-    image: ${STACK_PHP_IMAGE}-alpine
+    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-alpine
     volumes:
       - ./test:/test
   php-alpine-nginx:
     build:
       dockerfile: Dockerfile-fpm-alpine-nginx
       context: 'nginx'
-    image: ${STACK_PHP_IMAGE}-alpine-nginx
+    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-alpine-nginx
