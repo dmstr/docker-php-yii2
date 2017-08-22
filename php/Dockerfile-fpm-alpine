@@ -134,4 +134,3 @@ WORKDIR /app
 # Startup script for FPM
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["docker-run.sh"]
-
