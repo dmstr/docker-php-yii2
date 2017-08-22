@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: Dockerfile-fpm
       context: 'php'
-    image: ${STACK_PHP_IMAGE}
+    image: ${STACK_PHP_IMAGE}:${PHP_IMAGE_VERSION}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
