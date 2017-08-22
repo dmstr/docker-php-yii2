@@ -4,7 +4,7 @@ services:
   php:
     build:
       dockerfile: Dockerfile-fpm
-      context: 'php-7.1'
+      context: 'php'
     image: ${STACK_PHP_IMAGE}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
@@ -22,7 +22,7 @@ services:
   php-alpine:
     build:
       dockerfile: Dockerfile-fpm-alpine
-      context: 'php-7.1'
+      context: 'php'
     image: ${STACK_PHP_IMAGE}-alpine
     volumes:
       - ./test:/test
