@@ -65,7 +65,9 @@ RUN printf "\n" | pecl install \
         apcu-5.1.3 \
         imagick \
         mcrypt-1.0.0 && \
-    docker-php-ext-enable apcu
+    docker-php-ext-enable \
+        apcu \
+        imagick
 
 # Install xdebug
 RUN cd /tmp && \
