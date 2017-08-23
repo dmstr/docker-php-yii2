@@ -1,9 +1,9 @@
 stages:
   - php-build
   - php-test
-  - php-release
   - nginx-build
   - nginx-test
+  - php-release
   - nginx-release
   - cleanup
 
@@ -99,13 +99,15 @@ build:php-nginx:
   stage: nginx-build
   script:
     - cd nginx
-    - docker-compose build --pull php-nginx
+    # use locally built image
+    - docker-compose build php-nginx
 
 build:php-alpine-nginx:
   stage: nginx-build
   script:
     - cd nginx
-    - docker-compose build --pull php-alpine-nginx
+    # use locally built image
+    - docker-compose build php-alpine-nginx
 
 test:php-nginx:
   stage: nginx-test
