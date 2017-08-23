@@ -26,12 +26,12 @@ RUN apk --update --virtual build-deps add \
         bash \
         bash-completion \
         icu \
+        imagemagick \
         pcre \
         freetype \
         libmcrypt \
         libintl \
         libjpeg-turbo \
-        imagemagick \
         libpng \
         libltdl \
         libxml2 \

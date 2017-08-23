@@ -15,6 +15,7 @@ RUN apt-get update && \
             g++ \
             git \
             curl \
+            imagemagick \
             libfreetype6-dev \
             libcurl3-dev \
             libicu-dev \
@@ -22,6 +23,7 @@ RUN apt-get update && \
             libfreetype6-dev \
             libjpeg-dev \
             libjpeg62-turbo-dev \
+            libmagickwand-dev \
             libmcrypt-dev \
             libpq-dev \
             libpng-dev \
@@ -61,6 +63,7 @@ RUN docker-php-ext-configure gd \
 # see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
 RUN printf "\n" | pecl install \
         apcu-5.1.3 \
+        imagick \
         mcrypt-1.0.0 && \
     docker-php-ext-enable apcu
 
