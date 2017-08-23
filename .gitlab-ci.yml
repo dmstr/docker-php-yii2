@@ -7,11 +7,12 @@ stages:
   - nginx-release
   - cleanup
 
+variables:
+  ISOLATION: "buildpipeline${CI_PIPELINE_ID}"
+  COMPOSE_PROJECT_NAME: "${ISOLATION}${CI_BUILD_NAME}"
+  PHP_IMAGE_NAME: dmstr/php-yii2
 
 before_script:
-  - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
-  - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
-  - export PHP_IMAGE_NAME=dmstr/php-yii2
   - export PHP_IMAGE_VERSION=$(git describe --always --dirty)
   - export STACK_PHP_IMAGE=${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
   - export REGISTRY_PHP_IMAGE=${PHP_IMAGE_NAME}:${CI_BUILD_REF_NAME}
@@ -26,7 +27,6 @@ after_script:
   - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
   - docker-compose down -v
-  - docker images ${PHP_IMAGE_NAME}
 
 build:php:
   stage: php-build
