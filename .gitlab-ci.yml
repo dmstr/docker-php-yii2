@@ -20,12 +20,13 @@ before_script:
   # Docker >= 17.05 required for dynamic FROM references
   - docker version
   - docker-compose config
+  - docker images ${PHP_IMAGE_NAME}
 
 after_script:
   - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
   - docker-compose down -v
-
+  - docker images ${PHP_IMAGE_NAME}
 
 build:php:
   stage: php-build
