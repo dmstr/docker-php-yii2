@@ -5,6 +5,8 @@ services:
     build:
       dockerfile: Dockerfile-fpm
       context: 'php'
+      args:
+        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
     image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
@@ -25,6 +27,8 @@ services:
     build:
       dockerfile: Dockerfile-fpm-alpine
       context: 'php'
+      args:
+        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
     image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-alpine
     volumes:
       - ./test:/test
