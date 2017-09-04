@@ -1,7 +1,7 @@
 # PHP Docker image for Yii 2.0 Framework runtime
 # ==============================================
 
-FROM php:7.1.8-fpm-alpine
+FROM php:7.1.9-fpm-alpine
 
 # Install system packages & PHP extensions required for Yii 2.0 Framework
 # virtual pkg names and ENV $PHPIZE_DEPS are definied in base image
