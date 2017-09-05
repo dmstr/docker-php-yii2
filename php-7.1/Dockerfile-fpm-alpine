@@ -85,7 +85,8 @@ RUN set -xe \
  && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 \
      --disable-memcached-sasl \
  && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
- && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
+ && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip \
+ && apk del .memcached-deps
 
 # Install less-compiler
 RUN npm install -g \
@@ -93,6 +94,7 @@ RUN npm install -g \
         lesshint \
         uglify-js \
         uglifycss
+
 
 # Configure version constraints
 ENV PHP_ENABLE_XDEBUG=0 \

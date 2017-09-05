@@ -17,10 +17,10 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
             libjpeg62-turbo-dev \
             libmcrypt-dev \
             libpng12-dev \
+            libxml2-dev \
             zlib1g-dev \
             mysql-client \
             openssh-client \
-            libxml2-dev \
             nano \
             yui-compressor \
             linkchecker \
