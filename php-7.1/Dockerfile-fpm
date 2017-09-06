@@ -48,6 +48,19 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN printf "\n" | pecl install apcu-5.1.3 xdebug-stable && \
     docker-php-ext-enable apcu
 
+# memcache
+ENV MEMCACHED_DEPS libmemcached-dev git
+RUN set -xe \
+ && apt-get update \
+ && apt-get install -y $MEMCACHED_DEPS \
+ && curl https://codeload.github.com/php-memcached-dev/php-memcached/zip/php7 -o /tmp/memcached.zip \
+ && mkdir -p /usr/src/php/ext \
+ && unzip /tmp/memcached.zip -d /usr/src/php/ext \
+ && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 \
+     --disable-memcached-sasl \
+ && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
+ && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
+
 # Install less-compiler
 RUN npm install -g \
         less \
