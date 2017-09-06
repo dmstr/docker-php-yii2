@@ -76,6 +76,7 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS && \
 # memcache
 ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev git
 RUN set -xe \
+ && apk add libmemcached \
  && apk add --no-cache \
      --virtual .memcached-deps \
      $MEMCACHED_DEPS \

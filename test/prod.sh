@@ -7,6 +7,7 @@ docker-compose run --rm ${PHP_SERVICE} php --version
 # docker-compose run --rm ${PHP_SERVICE} php -i | grep opcache
 
 # better check loaded module list
+docker-compose run --rm ${PHP_SERVICE} php -m | grep -i memcached 1>/dev/null || exit 1
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i gd 1>/dev/null || exit 1
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i mcrypt 1>/dev/null || exit 1
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i opcache 1>/dev/null || exit 1
