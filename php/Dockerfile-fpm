@@ -28,10 +28,10 @@ RUN apt-get update && \
             libmcrypt-dev \
             libpq-dev \
             libpng-dev \
+            libxml2-dev \
             zlib1g-dev \
             mysql-client \
             openssh-client \
-            libxml2-dev \
             nano \
             linkchecker \
             nodejs \
@@ -81,6 +81,19 @@ RUN cd /tmp && \
     make install && \
     rm -rf /tmp/xdebug
 
+# memcache
+ENV MEMCACHED_DEPS libmemcached-dev git
+RUN set -xe \
+ && apt-get update \
+ && apt-get install -y $MEMCACHED_DEPS \
+ && curl https://codeload.github.com/php-memcached-dev/php-memcached/zip/php7 -o /tmp/memcached.zip \
+ && mkdir -p /usr/src/php/ext \
+ && unzip /tmp/memcached.zip -d /usr/src/php/ext \
+ && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 \
+     --disable-memcached-sasl \
+ && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
+ && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
+
 # Install less-compiler
 RUN npm install -g \
         less \
@@ -90,8 +103,8 @@ RUN npm install -g \
 
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \
-    VERSION_COMPOSER_ASSET_PLUGIN=^1.3.0 \
-    VERSION_PRESTISSIMO_PLUGIN=^0.3.0 \
+    VERSION_COMPOSER_ASSET_PLUGIN=^1.4.0 \
+    VERSION_PRESTISSIMO_PLUGIN=^0.3.7 \
     PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
     TERM=linux \
     COMPOSER_ALLOW_SUPERUSER=1

@@ -6,6 +6,9 @@ docker-compose run --rm ${PHP_SERVICE} php --version
 # this would match even if module is not loaded, eg. when commented out in opcache.ini
 # docker-compose run --rm ${PHP_SERVICE} php -i | grep opcache
 
+echo "Checking memcached..."
+docker-compose run --rm ${PHP_SERVICE} php -m | grep -i memcached 1>/dev/null || exit 1
+
 echo "Checking GDlib..."
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i gd 1>/dev/null || exit 1
 

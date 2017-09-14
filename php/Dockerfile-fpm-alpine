@@ -71,6 +71,7 @@ RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/pecl-apcu.ini \
 # memcache
 ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev git
 RUN set -xe \
+ && apk add libmemcached \
  && apk add --no-cache \
      --virtual .memcached-deps \
      $MEMCACHED_DEPS \
@@ -80,7 +81,8 @@ RUN set -xe \
  && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 \
      --disable-memcached-sasl \
  && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
- && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
+ && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip \
+ && apk del .memcached-deps
 
 # Install xdebug
 RUN export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" && \
@@ -103,10 +105,11 @@ RUN npm install -g \
         uglify-js \
         uglifycss
 
+
 # Configure version constraints
 ENV PHP_ENABLE_XDEBUG=0 \
-    VERSION_COMPOSER_ASSET_PLUGIN=^1.3.0 \
-    VERSION_PRESTISSIMO_PLUGIN=^0.3.0 \
+    VERSION_COMPOSER_ASSET_PLUGIN=^1.4.0 \
+    VERSION_PRESTISSIMO_PLUGIN=^0.3.7 \
     PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
     TERM=linux \
     COMPOSER_ALLOW_SUPERUSER=1
