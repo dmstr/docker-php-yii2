@@ -99,7 +99,7 @@ RUN export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" 
     apk del .phpize-deps
 
 # Install less-compiler
-RUN npm install -g npm@5 yarn@1 process-nextick-args
+RUN npm install -g npm yarn@1
 
 
 # Configure version constraints
