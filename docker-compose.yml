@@ -10,7 +10,7 @@ services:
     image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
-      - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
+      - PHP_ENABLE_XDEBUG
     volumes:
       - ./test:/test
   php-nginx:
@@ -21,7 +21,7 @@ services:
         - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
     image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-nginx
     environment:
-      - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
+      - PHP_ENABLE_XDEBUG
 
   php-alpine:
     build:

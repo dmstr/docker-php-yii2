@@ -14,4 +14,7 @@ docker-compose run --rm ${PHP_SERVICE} git --version || exit 1
 echo "Checking npm..."
 docker-compose run --rm ${PHP_SERVICE} npm --version || exit 1
 
+echo "Checking yarn..."
+docker-compose run --rm ${PHP_SERVICE} yarn --version || exit 1
+
 echo "Done."
