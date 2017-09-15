@@ -38,7 +38,7 @@ RUN apt-get update && \
             unzip \
         --no-install-recommends && \
         apt-get clean && \
-        npm -g install npm@latest && \
+        npm -g install npm@5 yarn@1 && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install PHP extensions required for Yii 2.0 Framework
@@ -94,13 +94,6 @@ RUN set -xe \
      --disable-memcached-sasl \
  && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
  && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
-
-# Install less-compiler
-RUN npm install -g \
-        less \
-        lesshint \
-        uglify-js \
-        uglifycss
 
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \
