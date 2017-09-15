@@ -20,9 +20,11 @@ It is primarily intended to build Yii 2.0 applications `FROM` this image, see be
 
 There is also an `nginx` flavour available for this image, in which PHP and nginx are managed with forego.
 
-
 Features
 --------
+
+- :warning: Note starting from version `5.0`, this image will no longer include asset-tooling required for Yii 2.0.
+  `npm` and `yarn` are still available as JavaScript package managers.     
 
 ### CLI commands
 
