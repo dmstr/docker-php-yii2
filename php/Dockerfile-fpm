@@ -38,6 +38,7 @@ RUN apt-get update && \
             unzip \
         --no-install-recommends && \
         apt-get clean && \
+        npm -g install npm && \
         npm -g install npm@5 yarn@1 && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
