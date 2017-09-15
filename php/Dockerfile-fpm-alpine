@@ -100,7 +100,7 @@ RUN export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" 
 
 # Install less-compiler
 RUN npm install -g npm@5
-RUN npm install -g yarn@1
+RUN npm install -g process-nextick-args yarn@1
 
 
 # Configure version constraints
