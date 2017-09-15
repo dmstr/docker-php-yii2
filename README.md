@@ -27,9 +27,8 @@ Features
 ### CLI commands
 
  - `composer`
- - `codecept`
- - `phpunit`
  - `npm`
+ - `yarn`
 
 #### Extensions
 
