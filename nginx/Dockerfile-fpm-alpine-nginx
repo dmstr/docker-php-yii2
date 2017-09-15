@@ -2,8 +2,9 @@ ARG PHP_IMAGE_VERSION
 FROM dmstr/php-yii2:${PHP_IMAGE_VERSION}-alpine
 
 # Install Forego
-RUN curl -L -o /usr/local/bin/forego https://github.com/jwilder/forego/releases/download/v0.16.1/forego \
- && chmod u+x /usr/local/bin/forego
+RUN curl -O https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.zip \
+ && unzip forego-stable-linux-amd64.zip -d /usr/local/bin
+
 
 # Install nginx
 RUN apk --update add nginx
