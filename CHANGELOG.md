@@ -26,10 +26,11 @@ CHANGELOG
 7.1-fpm-2.x
 -----------
 
+- updated PHP to 7.1
 - updated composer auth token handling
 
 
-7.1-fpm-1.x
+7.0-fpm-1.x
 -----------
 
 - inital release
