@@ -12,6 +12,7 @@ See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 [![build status](https://git.hrzg.de/dmstr/docker-php-yii2/badges/master/build.svg)](https://git.hrzg.de/dmstr/docker-php-yii2/commits/master)
 
+
 Introduction
 ------------
 
@@ -19,6 +20,7 @@ This is a Docker PHP image containing PHP extensions and composer packages and l
 It is primarily intended to build Yii 2.0 applications `FROM` this image, see below for available application templates.
 
 There is also an `nginx` flavour available for this image, in which PHP and nginx are managed with forego.
+
 
 Features
 --------
@@ -32,7 +34,7 @@ Features
  - `npm`
  - `yarn`
 
-#### Extensions
+### Extensions
 
  - soap
  - zip
@@ -48,6 +50,7 @@ Features
  - pdo_pgsql
  - memcache - *Alpine only*
  - xdebug - *installed, but not loaded by default*
+
 
 Configuration
 -------------
