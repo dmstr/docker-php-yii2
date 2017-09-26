@@ -12,11 +12,4 @@ cat <<'MSG'
 
 Docker image dmstr/php-yii2
 
-Available commands:
-
- composer
- codecept
- phpunit
- yii
-
 MSG
