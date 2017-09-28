@@ -3,13 +3,12 @@
 
 FROM php:7.1.9-fpm
 
-# Install system packages for PHP extensions recommended for Yii 2.0 Framework
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
-    apt-key update && \
-    apt-get update && \
-    apt-get -y install \
-            g++ \
-            git \
+# define build dependency lists
+# inherited from PHP base image:
+# PHPIZE_DEPS=autoconf 	dpkg-dev file g++ gcc libc-dev libpcre3-dev make pkg-config re2c
+ENV CUSTOM_BUILD_DEPS git \
+            unzip \
+            libmemcached-dev \
             libicu-dev \
             libmcrypt-dev \
             libfreetype6-dev \
@@ -18,48 +17,58 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
             libmcrypt-dev \
             libpng12-dev \
             libxml2-dev \
-            zlib1g-dev \
+            zlib1g-dev
+# list of other packages which could be deinstalled at the end
+ENV CUSTOM_REMOVE_LIST cpp \
+             cpp-4.9 \
+             g++-4.9 \
+             gcc-4.9 \
+             libgcc-4.9-dev \
+             libhashkit-dev \
+             libsasl2-dev \
+             libstdc++-4.9-dev
+
+
+
+# Install system packages for PHP extensions recommended for Yii 2.0 Framework
+# Install PHP extensions required for Yii 2.0 Framework
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
+    apt-key update && \
+    apt-get -y install \
+            $CUSTOM_BUILD_DEPS \
+            $PHPIZE_DEPS \
             mysql-client \
             openssh-client \
             nano \
-            yui-compressor \
             linkchecker \
             nodejs \
         --no-install-recommends && \
-        apt-get clean && \
         npm -g install npm@latest && \
+        docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ && \
+        docker-php-ext-configure bcmath && \
+        docker-php-ext-install gd \
+                               intl \
+                               pdo_mysql \
+                               mbstring \
+                               mcrypt \
+                               opcache \
+                               zip \
+                               bcmath \
+                               soap && \
+        curl https://codeload.github.com/php-memcached-dev/php-memcached/zip/php7 -o /tmp/memcached.zip \
+            && mkdir -p /usr/src/php/ext \
+            && unzip /tmp/memcached.zip -d /usr/src/php/ext \
+            && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 --disable-memcached-sasl \
+            && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
+            && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip && \
+        printf "\n" | pecl install apcu-5.1.3 xdebug-stable && \
+            docker-php-ext-enable apcu && \
+        apt-get remove -y $PHPIZE_DEPS $CUSTOM_BUILD_DEPS $CUSTOM_REMOVE_LIST && \
+        dpkg --purge $(dpkg -l | awk '/^rc/ { print $2 }') && \
+        apt-get clean && \
+        rm -rf /usr/src/php* \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install PHP extensions required for Yii 2.0 Framework
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ && \
-    docker-php-ext-configure bcmath && \
-    docker-php-ext-install gd \
-                           intl \
-                           pdo_mysql \
-                           mbstring \
-                           mcrypt \
-                           opcache \
-                           zip \
-                           bcmath \
-                           soap
-
-# Install PECL extensions
-# see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
-RUN printf "\n" | pecl install apcu-5.1.3 xdebug-stable && \
-    docker-php-ext-enable apcu
-
-# memcache
-ENV MEMCACHED_DEPS libmemcached-dev git
-RUN set -xe \
- && apt-get update \
- && apt-get install -y $MEMCACHED_DEPS \
- && curl https://codeload.github.com/php-memcached-dev/php-memcached/zip/php7 -o /tmp/memcached.zip \
- && mkdir -p /usr/src/php/ext \
- && unzip /tmp/memcached.zip -d /usr/src/php/ext \
- && docker-php-ext-configure /usr/src/php/ext/php-memcached-php7 \
-     --disable-memcached-sasl \
- && docker-php-ext-install /usr/src/php/ext/php-memcached-php7 \
- && rm -rf /usr/src/php/ext/php-memcached-php7 /tmp/memcached.zip
 
 # Install less-compiler
 RUN npm install -g \
