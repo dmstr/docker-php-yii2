@@ -9,15 +9,15 @@ FROM php:7.1.9-fpm-alpine
 # we install (newer) imagick from edge repo due to SEGFAULT bugs
 # hopefully this won't break other things...
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS && \
-    apk add --no-cache --virtual .imagemagick-edge imagemagick imagemagick-dev \
-        --no-cache \
-        --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
-        --allow-untrusted && \
-    apk --update --virtual .pecl-build-deps add \
+    apk add --no-cache --virtual .imagemagick-edge \
+            --repository http://dl-3.alpinelinux.org/alpine/v3.6/main/ \
+            --allow-untrusted \
+        imagemagick \
+        imagemagick-dev && \
+    apk add --update --virtual .pecl-build-deps \
         icu-dev \
         curl-dev \
         freetype-dev \
-        imagemagick-dev \
         pcre-dev \
         postgresql-dev \
         libtool \
