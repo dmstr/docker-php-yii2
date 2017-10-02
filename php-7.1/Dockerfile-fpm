@@ -6,7 +6,7 @@ FROM php:7.1.9-fpm
 # define build dependency lists
 # inherited from PHP base image:
 # PHPIZE_DEPS=autoconf 	dpkg-dev file g++ gcc libc-dev libpcre3-dev make pkg-config re2c
-ENV CUSTOM_BUILD_DEPS git \
+ENV CUSTOM_BUILD_DEPS \
             unzip \
             libmemcached-dev \
             libicu-dev \
@@ -37,6 +37,7 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
     apt-get -y install \
             $CUSTOM_BUILD_DEPS \
             $PHPIZE_DEPS \
+            git \
             mysql-client \
             openssh-client \
             nano \
