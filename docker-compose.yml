@@ -22,6 +22,8 @@ services:
     image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-nginx
     environment:
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
+    volumes:
+      - ./test/app/web:/app/web
     ports:
       - 80
       - 443
@@ -42,6 +44,8 @@ services:
       args:
         - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
     image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-alpine-nginx
+    volumes:
+      - ./test/app/web:/app/web
     ports:
       - 80
       - 443
