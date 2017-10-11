@@ -1,8 +1,8 @@
 FROM dmstr/php-yii2:latest
 
-# Install Forego
-RUN curl -L -o /usr/local/bin/forego https://github.com/jwilder/forego/releases/download/v0.16.1/forego \
- && chmod u+x /usr/local/bin/forego
+# Install forego (https://github.com/ddollar/forego/releases/tag/20170327195458)
+RUN curl -O https://bin.equinox.io/a/c6JW1BqJwSa/forego-20170327195458-linux-amd64.tar.gz \
+ && tar -xzf forego-20170327195458-linux-amd64.tar.gz -C /usr/local/bin
 
 # Install nginx
 RUN apt-get update \
