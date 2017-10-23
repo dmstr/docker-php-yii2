@@ -99,7 +99,7 @@ RUN npm install -g \
 
 # Configure version constraints
 ENV PHP_ENABLE_XDEBUG=0 \
-    VERSION_COMPOSER_ASSET_PLUGIN=^1.4.0 \
+    VERSION_COMPOSER_ASSET_PLUGIN=^1.4.2 \
     VERSION_PRESTISSIMO_PLUGIN=^0.3.7 \
     PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
     TERM=linux \
