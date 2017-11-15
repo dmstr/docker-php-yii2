@@ -67,7 +67,6 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
         apt-get remove -y $PHPIZE_DEPS $CUSTOM_BUILD_DEPS $CUSTOM_REMOVE_LIST && \
         dpkg --purge $(dpkg -l | awk '/^rc/ { print $2 }') && \
         apt-get clean && \
-        rm -rf /usr/src/php* \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
