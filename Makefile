@@ -1,5 +1,8 @@
 build:
-	docker-compose build --pull
+	docker-compose build --pull php
+	docker-compose build --pull php-nginx
+	docker-compose build --pull php-alpine
+	docker-compose build --pull php-alpine-nginx
 
 push-all:
 	git remote | xargs -L1 git push --all
