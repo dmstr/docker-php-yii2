@@ -6,11 +6,14 @@ Supported tags and respective `Dockerfile` links
 - `7.x-fpm-x.x-alpine`, `latest-alpine` ([Dockerfile](php/Dockerfile-fpm))
 - `7.x-fpm-x.x-alpine-nginx`, `latest-alpine-nginx` ([Dockerfile](nginx/Dockerfile-fpm-alpine-nginx))
 
+*`latest` images are currently built based on the `release/4.x` branch*
+
 :information_source: See repository tags for full version numbers
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 [![build status](https://git.hrzg.de/dmstr/docker-php-yii2/badges/master/build.svg)](https://git.hrzg.de/dmstr/docker-php-yii2/commits/master)
+
 
 Introduction
 ------------
