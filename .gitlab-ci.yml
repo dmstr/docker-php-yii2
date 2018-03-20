@@ -14,7 +14,7 @@ before_script:
   - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
   - export PHP_BASE_IMAGE_VERSION=7.2
-  - export PHP_IMAGE_VERSION=$(git describe --always --dirty)
+  - export PHP_IMAGE_VERSION=$(git describe --always --dirty --tags)
   - export STACK_PHP_IMAGE=${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
   - export REGISTRY_PHP_IMAGE=${PHP_IMAGE_NAME}:${CI_BUILD_REF_NAME}
   - export REGISTRY_PHP_IMAGE_LATEST=${PHP_IMAGE_NAME}:latest
