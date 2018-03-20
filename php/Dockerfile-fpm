@@ -86,7 +86,7 @@ RUN npm install -g \
         less \
         lesshint \
         uglify-js \
-        uglifycss
+        uglifycss@0.0.27
 
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \
