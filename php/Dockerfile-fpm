@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get -y install \
         gnupg2 && \
-    curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     apt-key update && \
     apt-get update && \
     apt-get -y install \
@@ -86,7 +86,7 @@ RUN npm install -g \
         less \
         lesshint \
         uglify-js \
-        uglifycss@0.0.27
+        uglifycss
 
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \
