@@ -1,3 +1,5 @@
+PS1="\e[0;35m[$APP_NAME] $APP_VERSION \e[0;0m\w \e[0;37m\u \h \e[0;0m\n$ "
+
 cat <<'MSG'
  ___________
 |           |
