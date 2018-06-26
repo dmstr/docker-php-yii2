@@ -1,3 +1,2 @@
-nginx: nginx -g 'daemon off;'
-phpfpm: docker-run.sh
-cron: crond -f
+# forego is no longer used
+# we now use supervisor for process control, see etc/supervisor/*.

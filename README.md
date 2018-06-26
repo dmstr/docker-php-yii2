@@ -21,8 +21,11 @@ Introduction
 This is a Docker PHP image containing PHP extensions and composer packages and libraries for *Yii 2.0 Framework*. 
 It is primarily intended to build Yii 2.0 applications `FROM` this image, see below for available application templates.
 
-There is also an `nginx` flavour available for this image, in which PHP and nginx are managed with forego.
+There is also an `nginx` flavour available for this image, in which PHP and nginx are managed with [supervisor](http://supervisord.org/).
 
+In older versions of the `nginx` images, forego was used for process control. 
+However, since forego is no longer actively maintained and problems can arise if one of the started processes terminates unsuspectedly, 
+we decided to switch to supervisor.
 
 Features
 --------
