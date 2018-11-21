@@ -15,6 +15,7 @@ RUN apt-get update && \
     apt-get -y install \
             g++ \
             git \
+            bash-completion \
             curl \
             imagemagick \
             libfreetype6-dev \
@@ -89,7 +90,6 @@ RUN npm install -g \
         uglifycss
 
 # Install Yii framework bash autocompletion
-RUN apt-get install bash-completion
 RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
         -o /etc/bash_completion.d/yii
 
