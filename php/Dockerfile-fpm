@@ -88,6 +88,11 @@ RUN npm install -g \
         uglify-js \
         uglifycss
 
+# Install Yii framework bash autocompletion
+RUN apt-get install bash-completion
+RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
+        -o /etc/bash_completion.d/yii
+
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \
     VERSION_COMPOSER_ASSET_PLUGIN=^1.4.3 \
