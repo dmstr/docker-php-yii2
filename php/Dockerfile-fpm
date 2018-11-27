@@ -29,6 +29,7 @@ RUN apt-get update && \
             libmcrypt-dev \
             libpq-dev \
             libpng-dev \
+            libzip-dev \
             zlib1g-dev \
             mysql-client \
             openssh-client \
