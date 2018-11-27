@@ -20,7 +20,8 @@ RUN apk --update --virtual build-deps add \
         libmcrypt-dev \
         libjpeg-turbo-dev \
         libpng-dev \
-        libxml2-dev && \
+        libxml2-dev \
+        libzip-dev && \
     apk add \
         git \
         curl \
@@ -88,7 +89,7 @@ RUN export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" 
     cd /tmp && \
     git clone git://github.com/xdebug/xdebug.git && \
     cd xdebug && \
-    git checkout 52adff7539109db592d07d3f6c325f6ee2a7669f && \
+    git checkout tags/2.7.0beta1 && \
     phpize && \
     ./configure --enable-xdebug && \
     make && \
