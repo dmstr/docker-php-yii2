@@ -65,7 +65,7 @@ RUN docker-php-ext-configure gd \
 # Install PECL extensions
 # see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
 RUN printf "\n" | pecl install \
-        apcu-5.1.3 \
+        apcu-5.1.14 \
         imagick \
         mcrypt-1.0.0 && \
     docker-php-ext-enable \
