@@ -15,19 +15,19 @@ RUN apt-get update && \
     apt-get -y install \
             g++ \
             git \
+            bash-completion \
             curl \
             imagemagick \
             libfreetype6-dev \
             libcurl3-dev \
             libicu-dev \
-            libmcrypt-dev \
             libfreetype6-dev \
             libjpeg-dev \
             libjpeg62-turbo-dev \
             libmagickwand-dev \
-            libmcrypt-dev \
             libpq-dev \
             libpng-dev \
+            libzip-dev \
             zlib1g-dev \
             mysql-client \
             openssh-client \
@@ -63,9 +63,8 @@ RUN docker-php-ext-configure gd \
 # Install PECL extensions
 # see http://stackoverflow.com/a/8154466/291573) for usage of `printf`
 RUN printf "\n" | pecl install \
-        apcu-5.1.3 \
-        imagick \
-        mcrypt-1.0.0 && \
+        apcu-5.1.14 \
+        imagick && \
     docker-php-ext-enable \
         apcu \
         imagick
@@ -74,7 +73,7 @@ RUN printf "\n" | pecl install \
 RUN cd /tmp && \
     git clone git://github.com/xdebug/xdebug.git && \
     cd xdebug && \
-    git checkout 52adff7539109db592d07d3f6c325f6ee2a7669f && \
+    git checkout tags/2.7.0beta1 && \
     phpize && \
     ./configure --enable-xdebug && \
     make && \
@@ -87,6 +86,10 @@ RUN npm install -g \
         lesshint \
         uglify-js \
         uglifycss
+
+# Install Yii framework bash autocompletion
+RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
+        -o /etc/bash_completion.d/yii
 
 ENV PHP_USER_ID=33 \
     PHP_ENABLE_XDEBUG=0 \

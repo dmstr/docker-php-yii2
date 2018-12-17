@@ -3,10 +3,10 @@ Supported tags and respective `Dockerfile` links
 
 - `7.x-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
 - `7.x-fpm-x.x-nginx`, `latest-nginx` ([Dockerfile](nginx/Dockerfile-fpm-nginx))
-- `7.x-fpm-x.x-alpine`, `latest-alpine` ([Dockerfile](php/Dockerfile-fpm))
-- `7.x-fpm-x.x-alpine-nginx`, `latest-alpine-nginx` ([Dockerfile](nginx/Dockerfile-fpm-alpine-nginx))
 
 *`latest` images are currently built based on the `release/4.x` branch*
+
+*Alpine support has been dropped since PHP 7.3*
 
 :information_source: See repository tags for full version numbers
 
@@ -51,7 +51,7 @@ Features
  - opcache
  - pdo_mysql
  - pdo_pgsql
- - memcache - *Alpine only*
+ - memcache
  - xdebug - *installed, but not loaded by default*
 
 Configuration
