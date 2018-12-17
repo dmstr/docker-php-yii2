@@ -34,11 +34,6 @@ build:php:
   script:
     - docker-compose build --pull php
 
-build:php-alpine:
-  stage: php-build
-  script:
-    - docker-compose build --pull php-alpine
-
 test:php:
   stage: php-test
   script:
@@ -47,15 +42,6 @@ test:php:
     - sh test/dev.sh
     - sh test/debug.sh
     - docker-compose run --rm php php /test/requirements.php
-
-test:php-alpine:
-  stage: php-test
-  script:
-    - export PHP_SERVICE=php-alpine
-    - sh test/prod.sh
-    - sh test/dev.sh
-    - sh test/debug.sh
-    - docker-compose run --rm php-alpine php /test/requirements.php
 
 test:php:allow-fail:
   stage: php-test
@@ -80,8 +66,6 @@ release:php:latest:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE_LATEST}
     - docker push ${REGISTRY_PHP_IMAGE_LATEST}
-    - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE_LATEST}-alpine
-    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine
 
 release:php:tags:
   stage: php-release
@@ -91,10 +75,6 @@ release:php:tags:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
     - docker push ${REGISTRY_PHP_IMAGE}
-    - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE}-alpine
-    - docker push ${REGISTRY_PHP_IMAGE}-alpine
-
-
 
 build:php-nginx:
   stage: nginx-build
@@ -103,22 +83,10 @@ build:php-nginx:
     # use locally built image
     - docker-compose build php-nginx
 
-build:php-alpine-nginx:
-  stage: nginx-build
-  script:
-    - cd nginx
-    # use locally built image
-    - docker-compose build php-alpine-nginx
-
 test:php-nginx:
   stage: nginx-test
   script:
     - docker-compose run --rm php-nginx nginx -v
-
-test:php-alpine-nginx:
-  stage: nginx-test
-  script:
-    - docker-compose run --rm php-alpine-nginx nginx -v
 
 release:nginx:latest:
   stage: nginx-release
@@ -128,8 +96,6 @@ release:nginx:latest:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE_LATEST}-nginx
     - docker push ${REGISTRY_PHP_IMAGE_LATEST}-nginx
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx
-    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx
 
 release:nginx:tags:
   stage: nginx-release
@@ -139,5 +105,3 @@ release:nginx:tags:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE}-alpine-nginx
-    - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx
