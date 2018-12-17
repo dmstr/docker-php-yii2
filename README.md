@@ -6,13 +6,17 @@ Supported tags and respective `Dockerfile` links
 
 *`latest` images are currently built based on the `release/4.x` branch*
 
-*Alpine support has been dropped since PHP 7.3*
-
 :information_source: See repository tags for full version numbers
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 [![build status](https://git.hrzg.de/dmstr/docker-php-yii2/badges/master/build.svg)](https://git.hrzg.de/dmstr/docker-php-yii2/commits/master)
+
+Changelog
+---------
+
+- Alpine support has been dropped since PHP 7.3
+- Forego has been replace with supervisord in `release/6.x`
 
 
 Introduction
