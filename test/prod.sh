@@ -9,9 +9,6 @@ docker-compose run --rm ${PHP_SERVICE} php --version
 echo "Checking GDlib..."
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i gd 1>/dev/null || exit 1
 
-echo "Checking mcrypt..."
-docker-compose run --rm ${PHP_SERVICE} php -m | grep -i mcrypt 1>/dev/null || exit 1
-
 echo "Checking opcache..."
 docker-compose run --rm ${PHP_SERVICE} php -m | grep -i opcache 1>/dev/null || exit 1
 
