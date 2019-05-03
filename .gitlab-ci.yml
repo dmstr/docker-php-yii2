@@ -66,6 +66,7 @@ release:php:latest:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE_LATEST}
     - docker push ${REGISTRY_PHP_IMAGE_LATEST}
+    - docker logout ${REGISTRY_HOST}
 
 release:php:tags:
   stage: php-release
@@ -75,6 +76,7 @@ release:php:tags:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
     - docker push ${REGISTRY_PHP_IMAGE}
+    - docker logout ${REGISTRY_HOST}
 
 build:php-nginx:
   stage: nginx-build
@@ -96,6 +98,7 @@ release:nginx:latest:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE_LATEST}-nginx
     - docker push ${REGISTRY_PHP_IMAGE_LATEST}-nginx
+    - docker logout ${REGISTRY_HOST}
 
 release:nginx:tags:
   stage: nginx-release
@@ -105,3 +108,4 @@ release:nginx:tags:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
+    - docker logout ${REGISTRY_HOST}
