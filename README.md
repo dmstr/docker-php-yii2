@@ -15,8 +15,19 @@ See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 Changelog
 ---------
 
-- Alpine support has been dropped since PHP 7.3
-- Forego has been replace with supervisord in `release/6.x`
+### 6.x
+
+- Alpine support has been dropped
+- Forego has been replace with supervisord
+
+### 5.x
+
+*no stable release*
+
+### 4.x
+
+- added bash-autocompletion
+- removed separate xdebug flavour
 
 
 Introduction
