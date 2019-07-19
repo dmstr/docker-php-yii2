@@ -10,7 +10,6 @@ RUN apt-get update && \
     apt-get -y install \
         gnupg2 && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    apt-key update && \
     apt-get update && \
     apt-get -y install \
             g++ \
@@ -36,6 +35,7 @@ RUN apt-get update && \
             nano \
             linkchecker \
             nodejs \
+            npm \
         --no-install-recommends && \
         apt-get clean && \
         npm -g install npm@latest && \
