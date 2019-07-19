@@ -30,7 +30,7 @@ RUN apt-get update && \
             libpq-dev \
             libpng-dev \
             zlib1g-dev \
-            mysql-client \
+            default-mysql-client \
             openssh-client \
             libxml2-dev \
             nano \
