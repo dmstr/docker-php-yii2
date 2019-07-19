@@ -6,7 +6,11 @@ Supported tags and respective `Dockerfile` links
 - `7.x-fpm-x.x-alpine`, `latest-alpine` ([Dockerfile](php/Dockerfile-fpm))
 - `7.x-fpm-x.x-alpine-nginx`, `latest-alpine-nginx` ([Dockerfile](nginx/Dockerfile-fpm-alpine-nginx))
 
-*`latest` images are currently built based on the `release/4.x` branch*
+### Branches
+
+- *`release/4.x` branch builds also `latest` images*
+- *`release/5.x` branch is deprectated*
+- *`release/6.x` branch uses supervisor instead of forego*
 
 :information_source: See repository tags for full version numbers
 
