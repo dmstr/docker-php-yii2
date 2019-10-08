@@ -19,6 +19,7 @@ Changelog
 
 - Alpine support has been dropped
 - Forego has been replace with supervisord
+- Removed Linkchecker
 
 ### 5.x
 

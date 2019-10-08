@@ -29,12 +29,11 @@ RUN apt-get update && \
             libpng-dev \
             libzip-dev \
             zlib1g-dev \
-            mysql-client \
+            default-mysql-client \
             openssh-client \
             libxml2-dev \
             nano \
-            linkchecker \
-            nodejs \
+            npm \
         --no-install-recommends && \
         apt-get clean && \
         npm -g install npm@latest && \
