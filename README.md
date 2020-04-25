@@ -9,7 +9,7 @@ Supported tags and respective `Dockerfile` links
 ### Branches
 
 - *`release/4.x` (PHP 7.2) branch builds also `latest` images*
-- *`release/5.x` branch is deprectated*
+- *`release/5.x` branch is deprecated*
 - *`release/6.x` (PHP 7.3) branch uses supervisor instead of forego*
 
 :information_source: See repository tags for full version numbers
