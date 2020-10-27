@@ -4,8 +4,10 @@ services:
   php:
     build:
       dockerfile: Dockerfile-fpm
-      context: 'php-7.1'
-    image: ${STACK_PHP_IMAGE}
+      context: 'php'
+      args:
+        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
+    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
@@ -15,25 +17,13 @@ services:
     build:
       dockerfile: Dockerfile-fpm-nginx
       context: 'nginx'
-    image: ${STACK_PHP_IMAGE}-nginx
+      args:
+        - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
+    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-nginx
     environment:
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
-
-  php-alpine:
-    build:
-      dockerfile: Dockerfile-fpm-alpine
-      context: 'php-7.1'
-    image: ${STACK_PHP_IMAGE}-alpine
     volumes:
-      - ./test:/test
-  php-alpine-nginx:
-    build:
-      dockerfile: Dockerfile-fpm-alpine-nginx
-      context: 'nginx'
-    image: ${STACK_PHP_IMAGE}-alpine-nginx
-
-  php-alpine-nginx-xdebug:
-    build:
-      dockerfile: Dockerfile-fpm-alpine-nginx-xdebug
-      context: 'nginx'
-    image: ${STACK_PHP_IMAGE}-alpine-nginx-xdebug
+      - ./test/app/web:/app/web
+    ports:
+      - 80
+      - 443

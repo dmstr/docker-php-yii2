@@ -1,23 +1,35 @@
 Supported tags and respective `Dockerfile` links
 ================================================
 
-- `7.0-fpm-1.9`, `7.0-fpm` ([7.0/fpm/Dockerfile-fpm](php-7.0/Dockerfile-fpm))
-- `7.1-fpm-2.0-beta1`, `7.1-fpm`, `latest` ([7.1/fpm/Dockerfile-fpm](php-7.1/Dockerfile-fpm))
-- `7.1-fpm-2.0-beta1-nginx`, `7.1-fpm-nginx` ([7.1/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
-- `7.1-fpm-2.0-beta1-alpine-nginx`, `7.1-fpm-alpine-nginx` ([7.1/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
+- `7.x-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
+- `7.x-fpm-x.x-nginx`, `latest-nginx` ([Dockerfile](nginx/Dockerfile-fpm-nginx))
 
-:information_source: `7.0-fpm-1.9` is based on PHP *7.0.15*
+*`latest` images are currently built based on the `release/4.x` branch*
 
-### Experimental
-
-- :b: `7.0-fpm-1.9-nginx`, `7.0-fpm-nginx` ([7.0/fpm/Dockerfile-fpm-nginx](nginx/Dockerfile-fpm-nginx))
-- :b: `7.0-fpm-1.9-alpine-nginx`, `7.0-fpm-alpine-nginx` ([7.0/fpm/Dockerfile-fpm-alpine-nginx](nginx/Dockerfile-fpm-alpine-nginx))
-- :a: `7.0-fpm-1.9-alpine-nginx-xdebug`, `7.0-fpm-alpine-nginx-xdebug` ([7.0/fpm/Dockerfile-fpm-alpine-nginx-xdebug](nginx/Dockerfile-fpm-alpine-nginx-xdebug))
-- :a: `7.1-fpm-2.0-beta1-alpine-nginx-xdebug`, `7.1-fpm-alpine-nginx-xdebug` ([7.1/fpm/Dockerfile-fpm-alpine-nginx-xdebug](nginx/Dockerfile-fpm-alpine-nginx-xdebug))
+:information_source: See repository tags for full version numbers
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 [![build status](https://git.hrzg.de/dmstr/docker-php-yii2/badges/master/build.svg)](https://git.hrzg.de/dmstr/docker-php-yii2/commits/master)
+
+Changelog
+---------
+
+### 6.x
+
+- Alpine support has been dropped
+- Forego has been replace with supervisord
+- Removed Linkchecker
+
+### 5.x
+
+*no stable release*
+
+### 4.x
+
+- added bash-autocompletion
+- removed separate xdebug flavour
+
 
 Introduction
 ------------
@@ -25,8 +37,11 @@ Introduction
 This is a Docker PHP image containing PHP extensions and composer packages and libraries for *Yii 2.0 Framework*. 
 It is primarily intended to build Yii 2.0 applications `FROM` this image, see below for available application templates.
 
-There is also an `nginx` flavour available for this image, in which PHP and nginx are managed with forego.
+There is also an `nginx` flavour available for this image, in which PHP and nginx are managed with [supervisor](http://supervisord.org/).
 
+In older versions of the `nginx` images, forego was used for process control. 
+However, since forego is no longer actively maintained and problems can arise if one of the started processes terminates unsuspectedly, 
+we decided to switch to supervisor.
 
 Features
 --------
@@ -36,18 +51,24 @@ Features
  - `composer`
  - `codecept`
  - `phpunit`
- - `yii`
+ - `npm`
 
-#### Availability matrix
+#### Extensions
 
-| Command  | fpm  | fpm-alpine | fpm-alpine-nginx | fpm-alpine-nginx-debug |
-|----------|------|------------|------------------|------------------------|
-| *xdebug* | :ok: | :x:  | :x:  | :ok: |
-| codecept | :ok: | :ok: | :ok: | :ok: |
-| composer | :ok: | :ok: | :ok: | :ok: |
-| phpunit  | :ok: | :ok: | :ok: | :ok: |
-| yii      | :ok: | :ok: | :ok: | :ok: |
-| npm      | :ok: | :ok: | :ok: | :ok: |
+ - soap
+ - zip
+ - curl
+ - bcmath
+ - exif
+ - gd
+ - iconv
+ - intl
+ - mbstring
+ - opcache
+ - pdo_mysql
+ - pdo_pgsql
+ - memcache
+ - xdebug - *installed, but not loaded by default*
 
 Configuration
 -------------

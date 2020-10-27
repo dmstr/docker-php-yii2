@@ -1,42 +1,38 @@
 stages:
   - php-build
   - php-test
-  - php-release
   - nginx-build
   - nginx-test
+  - php-release
   - nginx-release
-  - nginx-xdebug-build
-  - nginx-xdebug-test
-  - nginx-xdebug-release
   - cleanup
 
+variables:
+  PHP_IMAGE_NAME: dmstr/php-yii2
 
 before_script:
   - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
-  - export APP_VERSION=$(git describe --always --dirty)
-  - export PHP_IMAGE_NAME=dmstr/php-yii2
-  - export STACK_PHP_IMAGE=${PHP_IMAGE_NAME}:${APP_VERSION}
+  - export PHP_BASE_IMAGE_VERSION=7.4
+  - export PHP_IMAGE_VERSION=$(git describe --always --dirty --tags)
+  - export STACK_PHP_IMAGE=${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
   - export REGISTRY_PHP_IMAGE=${PHP_IMAGE_NAME}:${CI_BUILD_REF_NAME}
   - export REGISTRY_PHP_IMAGE_LATEST=${PHP_IMAGE_NAME}:latest
-  - echo "Building image"
-  - echo ${STACK_PHP_IMAGE}
+  - echo "Build-environment information"
+  # Docker >= 17.05 required for dynamic FROM references
+  - docker version
+  - docker-compose config
+  - docker images ${PHP_IMAGE_NAME}
 
 after_script:
   - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
   - docker-compose down -v
 
-
 build:php:
   stage: php-build
   script:
     - docker-compose build --pull php
-
-build:php-alpine:
-  stage: php-build
-  script:
-    - docker-compose build --pull php-alpine
 
 test:php:
   stage: php-test
@@ -47,18 +43,10 @@ test:php:
     - sh test/debug.sh
     - docker-compose run --rm php php /test/requirements.php
 
-test:php-alpine:
-  stage: php-test
-  script:
-    - export PHP_SERVICE=php-alpine
-    - sh test/prod.sh
-    - sh test/dev.sh
-    - docker-compose run --rm php-alpine php /test/requirements.php
-
 test:php:allow-fail:
   stage: php-test
   script:
-    - cd php-7.1
+    - cd php
     - docker run --rm ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
   allow_failure: true
   except:
@@ -67,20 +55,18 @@ test:php:allow-fail:
 lint:php:
   stage: php-test
   script:
-    - cd php-7.1
+    - cd php
     - docker-compose run --rm php composer global show
 
 release:php:latest:
   stage: php-release
   only:
     - latest
-    - tags
   script:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE_LATEST}
     - docker push ${REGISTRY_PHP_IMAGE_LATEST}
-    - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE_LATEST}-alpine
-    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine
+    - docker logout ${REGISTRY_HOST}
 
 release:php:tags:
   stage: php-release
@@ -90,43 +76,31 @@ release:php:tags:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
     - docker push ${REGISTRY_PHP_IMAGE}
-    - docker tag ${STACK_PHP_IMAGE}-alpine ${REGISTRY_PHP_IMAGE}-alpine
-    - docker push ${REGISTRY_PHP_IMAGE}-alpine
-
-
+    - docker logout ${REGISTRY_HOST}
 
 build:php-nginx:
   stage: nginx-build
   script:
     - cd nginx
-    - docker-compose build --pull php-nginx
+    # use locally built image
+    - docker-compose build php-nginx
 
-build:php-alpine-nginx:
-  stage: nginx-build
-  script:
-    - cd nginx
-    - docker-compose build --pull php-alpine-nginx
-
-test:php-alpine-nginx:
+test:php-nginx:
   stage: nginx-test
   script:
-    - sh test/prod.sh
-    - sh test/dev.sh
-    - docker-compose run --rm php-alpine-nginx nginx -v
+    - docker-compose run --rm php-nginx nginx -v
 
 release:nginx:latest:
   stage: nginx-release
   only:
     - latest
-    - tags
   script:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE_LATEST}-nginx
     - docker push ${REGISTRY_PHP_IMAGE_LATEST}-nginx
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx
-    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx
+    - docker logout ${REGISTRY_HOST}
 
-release:nginx:tag:
+release:nginx:tags:
   stage: nginx-release
   only:
     - tags
@@ -134,38 +108,4 @@ release:nginx:tag:
     - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
     - docker tag ${STACK_PHP_IMAGE}-nginx ${REGISTRY_PHP_IMAGE}-nginx
     - docker push ${REGISTRY_PHP_IMAGE}-nginx
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx ${REGISTRY_PHP_IMAGE}-alpine-nginx
-    - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx
-
-
-build:php-alpine-nginx-xdebug:
-  stage: nginx-xdebug-build
-  script:
-    - cd nginx
-    - docker-compose build --pull php-alpine-nginx-xdebug
-
-test:php-alpine-nginx-xdebug:
-  stage: nginx-xdebug-test
-  script:
-    - sh test/debug.sh
-
-
-
-release:php-alpine-nginx-xdebug:latest:
-  stage: nginx-xdebug-release
-  only:
-    - latest
-    - tags
-  script:
-    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx-xdebug
-    - docker push ${REGISTRY_PHP_IMAGE_LATEST}-alpine-nginx-xdebug
-
-release:php-alpine-nginx-xdebug:tag:
-  stage: nginx-xdebug-release
-  only:
-    - tags
-  script:
-    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
-    - docker tag ${STACK_PHP_IMAGE}-alpine-nginx-xdebug ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
-    - docker push ${REGISTRY_PHP_IMAGE}-alpine-nginx-xdebug
+    - docker logout ${REGISTRY_HOST}
