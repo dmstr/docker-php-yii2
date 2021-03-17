@@ -1,4 +1,4 @@
-Supported tags and respective `Dockerfile` links
+qSupported tags and respective `Dockerfile` links
 ================================================
 
 - `7.x-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
@@ -14,6 +14,10 @@ See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 Changelog
 ---------
+
+### 7.x
+
+- switched to PHP 7.4
 
 ### 6.x
 
