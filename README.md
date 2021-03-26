@@ -1,4 +1,4 @@
-qSupported tags and respective `Dockerfile` links
+Supported tags and respective `Dockerfile` links
 ================================================
 
 - `7.x-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
