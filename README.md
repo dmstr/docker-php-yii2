@@ -15,6 +15,10 @@ See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 Changelog
 ---------
 
+### 8.x
+
+- using updated yii2 images, different system package installation
+
 ### 7.x
 
 - switched to PHP 7.4
