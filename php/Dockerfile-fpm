@@ -9,7 +9,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get -y install \
         gnupg2 && \
-    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     apt-key update && \
     apt-get update && \
     apt-get -y install \
@@ -18,11 +17,10 @@ RUN apt-get update && \
             npm \
         --no-install-recommends && \
         apt-get clean && \
-        npm -g install npm@latest && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install less-compiler
-RUN npm install -g \
+RUN npm -g install \
         less \
         lesshint \
         uglify-js \
