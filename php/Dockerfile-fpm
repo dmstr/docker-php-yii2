@@ -15,6 +15,7 @@ RUN apt-get update && \
             git \
             nano \
             npm \
+            default-mysql-client \
         --no-install-recommends && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
