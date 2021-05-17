@@ -52,12 +52,6 @@ test:php:allow-fail:
   except:
     - tags
 
-lint:php:
-  stage: php-test
-  script:
-    - cd php
-    - docker-compose run --rm php composer global show
-
 release:php:latest:
   stage: php-release
   only:
