@@ -33,7 +33,7 @@ test:php:
     - sh test/prod.sh
     - sh test/dev.sh
     - sh test/debug.sh
-    - docker-compose run --rm php php /test/requirements.php
+    - docker-compose run --rm php-nginx php /test/requirements.php
 
 test:php:allow-fail:
   stage: test
