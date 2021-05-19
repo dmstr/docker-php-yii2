@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PHP_SERVICE=${PHP_SERVICE-php}
+PHP_SERVICE=${PHP_SERVICE-php-nginx}
 
 docker-compose run --rm ${PHP_SERVICE} php --version
 # this would match even if module is not loaded, eg. when commented out in opcache.ini

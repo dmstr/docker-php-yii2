@@ -1,10 +1,7 @@
 stages:
-  - php-build
-  - php-test
-  - nginx-build
-  - nginx-test
-  - php-release
-  - nginx-release
+  - build
+  - test
+  - release
   - cleanup
 
 variables:
@@ -14,7 +11,6 @@ before_script:
   - export ISOLATION=buildpipeline${CI_PIPELINE_ID}
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
   - export PHP_BASE_IMAGE_VERSION=7.4
-  - export PHP_IMAGE_VERSION=$(git describe --always --dirty --tags)
   - export STACK_PHP_IMAGE=${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
   - export REGISTRY_PHP_IMAGE=${PHP_IMAGE_NAME}:${CI_BUILD_REF_NAME}
   - export REGISTRY_PHP_IMAGE_LATEST=${PHP_IMAGE_NAME}:latest
@@ -29,22 +25,18 @@ after_script:
   - export COMPOSE_PROJECT_NAME=${ISOLATION}${CI_BUILD_NAME}
   - docker-compose down -v
 
-build:php:
-  stage: php-build
-  script:
-    - docker-compose build --pull php
 
 test:php:
-  stage: php-test
+  stage: test
   script:
-    - export PHP_SERVICE=php
+    - export PHP_SERVICE=php-nginx
     - sh test/prod.sh
     - sh test/dev.sh
     - sh test/debug.sh
     - docker-compose run --rm php php /test/requirements.php
 
 test:php:allow-fail:
-  stage: php-test
+  stage: test
   script:
     - cd php
     - docker run --rm ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
@@ -52,40 +44,21 @@ test:php:allow-fail:
   except:
     - tags
 
-release:php:latest:
-  stage: php-release
-  only:
-    - latest
-  script:
-    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
-    - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE_LATEST}
-    - docker push ${REGISTRY_PHP_IMAGE_LATEST}
-    - docker logout ${REGISTRY_HOST}
-
-release:php:tags:
-  stage: php-release
-  only:
-    - tags
-  script:
-    - docker login --username ${REGISTRY_USER} --password ${REGISTRY_PASS} ${REGISTRY_HOST}
-    - docker tag ${STACK_PHP_IMAGE} ${REGISTRY_PHP_IMAGE}
-    - docker push ${REGISTRY_PHP_IMAGE}
-    - docker logout ${REGISTRY_HOST}
 
 build:php-nginx:
-  stage: nginx-build
+  stage: build
   script:
     - cd nginx
     # use locally built image
     - docker-compose build php-nginx
 
 test:php-nginx:
-  stage: nginx-test
+  stage: test
   script:
     - docker-compose run --rm php-nginx nginx -v
 
 release:nginx:latest:
-  stage: nginx-release
+  stage: release
   only:
     - latest
   script:
@@ -95,7 +68,7 @@ release:nginx:latest:
     - docker logout ${REGISTRY_HOST}
 
 release:nginx:tags:
-  stage: nginx-release
+  stage: release
   only:
     - tags
   script:

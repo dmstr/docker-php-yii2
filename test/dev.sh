@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PHP_SERVICE=${PHP_SERVICE-php}
+PHP_SERVICE=${PHP_SERVICE-php-nginx}
 
 echo "Checking composer..."
 docker-compose run --rm ${PHP_SERVICE} composer --version || exit 1

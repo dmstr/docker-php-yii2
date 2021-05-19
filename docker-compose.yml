@@ -1,28 +1,18 @@
 version: '2'
 services:
 
-  php:
-    build:
-      dockerfile: Dockerfile-fpm
-      context: 'php'
-      args:
-        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
-    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}
-    environment:
-      - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
-      - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
-    volumes:
-      - ./test:/test
   php-nginx:
     build:
       dockerfile: Dockerfile-fpm-nginx
       context: 'nginx'
       args:
-        - PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION}
-    image: ${PHP_IMAGE_NAME}:${PHP_IMAGE_VERSION}-nginx
+        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
+    image: ${PHP_IMAGE_NAME}:${PHP_BASE_IMAGE_VERSION}-nginx
     environment:
+      - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
       - PHP_ENABLE_XDEBUG=${PHP_ENABLE_XDEBUG}
     volumes:
+      - ./test:/test
       - ./test/app/web:/app/web
     ports:
       - 80
