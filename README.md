@@ -12,6 +12,7 @@ See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
 
 [![build status](https://git.hrzg.de/dmstr/docker-php-yii2/badges/master/build.svg)](https://git.hrzg.de/dmstr/docker-php-yii2/commits/master)
 
+
 Changelog
 ---------
 
@@ -52,6 +53,7 @@ In older versions of the `nginx` images, forego was used for process control.
 However, since forego is no longer actively maintained and problems can arise if one of the started processes terminates unsuspectedly, 
 we decided to switch to supervisor.
 
+
 Features
 --------
 
@@ -78,6 +80,7 @@ Features
  - pdo_pgsql
  - memcache
  - xdebug - *installed, but not loaded by default*
+
 
 Configuration
 -------------
