@@ -4,8 +4,6 @@ Supported tags and respective `Dockerfile` links
 - `7.x-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
 - `7.x-fpm-x.x-nginx`, `latest-nginx` ([Dockerfile](nginx/Dockerfile-fpm-nginx))
 
-*`latest` images are currently built based on the `release/4.x` branch*
-
 :information_source: See repository tags for full version numbers
 
 See all available [image tags](https://hub.docker.com/r/dmstr/php-yii2/tags/)
