@@ -18,7 +18,9 @@ Changelog
 
 ### 8.x
 
-- using updated yii2 images, different system package installation
+- using updated yii2 images
+  - different system package installation
+  - composer 2
 - removed standalone `fpm` image
 
 ### 7.x
