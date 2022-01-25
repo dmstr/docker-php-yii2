@@ -38,7 +38,7 @@ test:php:
 test:php:allow-fail:
   stage: test
   script:
-    - docker run --rm ${STACK_PHP_IMAGE}-nginx sh -c 'composer diagnose'
+    - docker-compose run --rm php-nginx sh -c 'composer diagnose'
   allow_failure: true
   except:
     - tags
