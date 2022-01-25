@@ -38,8 +38,7 @@ test:php:
 test:php:allow-fail:
   stage: test
   script:
-    - cd php
-    - docker run --rm ${STACK_PHP_IMAGE} sh -c 'composer global update --dry-run; composer diagnose'
+    - docker run --rm ${STACK_PHP_IMAGE} sh -c 'composer diagnose'
   allow_failure: true
   except:
     - tags
