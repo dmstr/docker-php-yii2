@@ -1,5 +1,4 @@
 build:
-	docker-compose build --pull php
 	docker-compose build --pull php-nginx
 
 push-all:
