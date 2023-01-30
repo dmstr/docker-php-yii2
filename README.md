@@ -1,3 +1,6 @@
+> :rotating_light: This repository is abandoned, please use https://github.com/yiisoft/yii2-docker
+
+
 Supported tags and respective `Dockerfile` links
 ================================================
 
