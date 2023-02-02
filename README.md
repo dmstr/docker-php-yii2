@@ -1,8 +1,8 @@
 Supported tags and respective `Dockerfile` links
 ================================================
 
-- `7.x-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
-- `7.x-fpm-x.x-nginx`, `latest-nginx` ([Dockerfile](nginx/Dockerfile-fpm-nginx))
+- `8.0-fpm-x.x`, `latest` ([Dockerfile](php/Dockerfile-fpm))
+- `8.0-fpm-x.x-nginx`, `latest-nginx` ([Dockerfile](nginx/Dockerfile-fpm-nginx))
 
 :information_source: See repository tags for full version numbers
 
